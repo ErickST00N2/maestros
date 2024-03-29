@@ -67,20 +67,41 @@ class MenuLateral extends StatelessWidget {
             ListTile(
               title: const Text("Datos del profesor"),
               leading:
-                  Icon(color: Color(ColoresApp.fuerte3), Icons.library_books),
+                  Icon(color: Color(ColoresApp.fuerte3), Icons.credit_card),
               onTap: () => Routes.showScreen(_, 'view_data_teacher'),
             ),
-            ListTile(
-              title: const Text("Lista de incidencias"),
-              leading: Icon(color: Color(ColoresApp.fuerte3), Icons.list),
-              onTap: () {
-                Routes.showScreen(_, 'view_incidents');
-              },
-            ),
-            ListTile(
-              title: const Text("Añadir incidencias"),
-              leading: Icon(color: Color(ColoresApp.fuerte3), Icons.add_box),
-              onTap: () => Routes.showScreen(_, 'add_incidents'),
+            ExpansionTile(
+              title:
+                  const Text('Incidencias y Asistencias'), // Título del grupo
+              leading: Icon(
+                  color: Color(ColoresApp().fuerte),
+                  Icons.event_note), // Icono del grupo
+
+              // Cuerpo del grupo
+              children: [
+                // Subelementos del grupo
+                ListTile(
+                  title: const Text("Lista de incidencias"),
+                  leading: Icon(
+                      color: Color(ColoresApp.fuerte3),
+                      Icons.list_alt_outlined),
+                  onTap: () {
+                    Routes.showScreen(_, 'view_incidents');
+                  },
+                ),
+                ListTile(
+                  title: const Text("Añadir incidencias"),
+                  leading:
+                      Icon(color: Color(ColoresApp.fuerte3), Icons.add_box),
+                  onTap: () => Routes.showScreen(_, 'add_incidents'),
+                ),
+                ListTile(
+                  title: const Text("Registrar Asistencia"),
+                  leading: Icon(
+                      color: Color(ColoresApp.fuerte3), Icons.qr_code_scanner),
+                  onTap: () => Routes.showScreen(_, 'register_attendance'),
+                ),
+              ],
             ),
             ListTile(
               title: const Text("Tutorial"),

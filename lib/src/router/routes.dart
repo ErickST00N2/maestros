@@ -7,6 +7,7 @@ import 'package:maestros/src/pages/incident_list.dart';
 import 'package:maestros/src/pages/login.dart';
 import 'package:maestros/src/pages/my_home_page.dart';
 import 'package:maestros/src/pages/register.dart';
+import 'package:maestros/src/pages/register_class_attendance.dart';
 import 'package:maestros/src/pages/tutorial.dart';
 import 'package:maestros/src/pages/welcom.dart';
 import 'package:maestros/src/services/auth.dart';
@@ -26,6 +27,11 @@ class Routes {
         return _checkAuthAndNavigate(
           settings,
           AddIncidents(),
+        );
+      case '/register_attendance':
+        return _checkAuthAndNavigate(
+          settings,
+          RegisterClassAttendance(),
         );
       case '/alumn_incident':
         return _checkAuthAndNavigate(

@@ -14,23 +14,25 @@ class QrBarCodeScannerDialogView extends StatelessWidget {
       return Material(
         child: Center(
           child: ElevatedButton(
-              onPressed: () {
-                _qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
-                    context: context,
-                    onCode: (code) {
-                      try {
-                        int numControl = int.parse(code.toString());
-                        context
-                            .read<StudentForm>()
-                            .setStudent(numControl)
-                            .whenComplete(() => showSnackBar(context, true));
-                      } catch (e) {
-                        showSnackBar(context, false);
-                        debugPrint("Este es el catch del qr scanner dialog$e");
-                      }
-                    });
-              },
-              child: const Text('Scanear Código QR')),
+            onPressed: () {
+              _qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
+                context: context,
+                onCode: (code) {
+                  try {
+                    int numControl = int.parse(code.toString());
+                    context
+                        .read<StudentForm>()
+                        .setStudent(numControl)
+                        .whenComplete(() => showSnackBar(context, true));
+                  } catch (e) {
+                    showSnackBar(context, false);
+                    debugPrint("Este es el catch del qr scanner dialog$e");
+                  }
+                },
+              );
+            },
+            child: const Text('Scanear Código QR'),
+          ),
         ),
       );
     });

@@ -80,16 +80,14 @@ class AuthService with ChangeNotifier {
 
       if (userDoc['TypeUsers'] == 'Maestros') {
         userDoc = await _db.collection('Maestros').doc(user.uid).get();
+        _user.setFromFireStore(userDoc);
+        notifyListeners();
+        await updateUserData(user);
+        return user;
       } else {
         signOut();
         return null;
       }
-
-      _user.setFromFireStore(userDoc);
-      notifyListeners();
-      //await updateUserData(user);
-
-      return user;
     } catch (e) {
       _status = AuthStatus.Unauthenticated;
       notifyListeners();

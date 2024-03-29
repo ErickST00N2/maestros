@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 /// [buildCardFront] - Método que construye la tarjeta front de credenciales del maestro.
@@ -187,23 +188,26 @@ Widget buildCardFront(BuildContext context, databaseUser, double pi) {
           ///en el caso de los maestros solo va su especialidad.
           Expanded(
             flex: 2,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(15),
-                  topRight: Radius.circular(15),
+            child: SizedBox.expand(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
                 ),
-              ),
-              child: Transform.rotate(
-                angle: pi / 2,
                 child: Center(
-                  child: Text(
-                    "${databaseUser.especialidad}",
-                    textScaler: const TextScaler.linear(1.2),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: AutoSizeText(
+                      //TODO: Aquí va la carrera, grado y grupo
+                      "${databaseUser.especialidad.toString().toUpperCase()} ",
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

@@ -25,9 +25,9 @@ class Users with ChangeNotifier {
 
   String _schoolCycle = 'Cargando...';
 
-  String _lastSign = 'Cargando...';
+  DateTime _lastSign = DateTime.now();
 
-  int _claveMaestro = 0;
+  String _claveMaestro = 'Cargando...';
 
   String _nombre = 'Cargando...';
 
@@ -68,9 +68,9 @@ class Users with ChangeNotifier {
     notifyListeners();
   }
 
-  int get claveMaestro => _claveMaestro;
+  String get claveMaestro => _claveMaestro;
 
-  set claveMaestro(int value) {
+  set claveMaestro(String value) {
     _claveMaestro = value;
     notifyListeners();
   }
@@ -117,9 +117,9 @@ class Users with ChangeNotifier {
     notifyListeners();
   }
 
-  String get lastSign => _lastSign;
+  DateTime get lastSign => _lastSign;
 
-  set lastSign(String value) {
+  set lastSign(DateTime value) {
     _lastSign = value;
     notifyListeners();
   }
@@ -283,22 +283,43 @@ class Users with ChangeNotifier {
   }
 
   void setFromFireStore(DocumentSnapshot userDoc) async {
-    Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
-    curp = userData['Curp'];
-    claveMaestro = userData['ClaveMaestro'];
-    correo = userData['Correo'];
-    direccion = userData['Direccion'];
-    especialidad = userData['Especialidad'];
-    nivelEducativo = userData['NivelEducativo'];
-    nombre = userData['Nombre'];
-    numTel = userData['NumeroTel'];
-    password = userData['Password'];
-    idMaestros = userDoc['idmaestros'];
-    lastSign = userData['lastSign'];
-    photoURL = await _instancia.getDownloadUrl(userData['photoURL']);
-    uid = userDoc.id;
-    // Verifica si photoURL es null antes de notificar a los listeners
-    notifyListeners();
+    if (userDoc.exists) {
+      Map<String, dynamic>? userData = userDoc.data() as Map<String, dynamic>?;
+      if (userData != null) {
+        curp = userData['CURP'];
+        claveMaestro = userData['ClaveMaestro'];
+        correo = userData['Correo'];
+        direccion = userData['Direccion'];
+        especialidad = userData['Especialidad'];
+        nivelEducativo = userData['NivelEducativo'];
+        nombre = userData['Nombre'];
+        numTel = userData['NumeroTel'];
+        password = userData['Password'];
+        idMaestros = userData['idmaestros'];
+        // Verificar si 'photoURL' no es null antes de acceder a él
+        if (userData['photoURL'] != null) {
+          // Convertir a cadena de texto solo si no es null
+          photoURL = await _instancia.getDownloadUrl(userData['photoURL']);
+        } else {
+          // En caso de ser null, asignar un valor por defecto o dejar vacío
+          photoURL = ''; // o cualquier otro valor por defecto que desees
+        }
+
+        // Verifica si 'lastSign' no es null antes de intentar convertirlo
+        if (userData['lastSign'] != null) {
+          // Convertir el campo 'lastSign' de Timestamp a DateTime
+          Timestamp timestamp = userData['lastSign'];
+          lastSign = timestamp.toDate();
+        } else {
+          // En caso de ser null, asignar un valor por defecto o dejar vacío
+          lastSign =
+              DateTime.now(); // o cualquier otro valor por defecto que desees
+        }
+        uid = userDoc.id;
+        // Verifica si photoURL es null antes de notificar a los listeners
+        notifyListeners();
+      }
+    }
   }
 
   Future setPhotoURL(String url, File file) async {
