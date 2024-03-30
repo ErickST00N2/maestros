@@ -5,6 +5,7 @@ import 'package:maestros/src/providers/list_incidents.dart';
 import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/util/info.dart';
 
 import 'package:maestros/src/widgets/add_incidents/dropmenu.dart';
 import 'package:maestros/src/widgets/showSnackBar.dart';
@@ -73,21 +74,19 @@ class FormViewAddIncidents extends StatelessWidget {
     'Transformación de Plásticos',
   ];
 
-  final List asignatura = [
-    'Biología',
-    'Física',
-    'Química',
-    'Matemáticas',
-    'Inglés'
-  ];
+  final List asignatura = InfoAplication().asignatura;
 
-  //Incidencias
+// Incidencias
   final List incidencias = [
     'Falta de Asistencia',
     'No Entrega Actividades',
     'No entrega Tarea',
     'Es Indisciplinado',
-    'Retardos Consecutivos'
+    'Retardos Consecutivos',
+    'Falta de Respeto',
+    'Comportamiento Agresivo',
+    'Falta de Atención',
+    // Agrega más incidencias aquí según sea necesario
   ];
 
   ///TODO TERMINAR DE HACER ESTE ARCHIVO PARA HOY

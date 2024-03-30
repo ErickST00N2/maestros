@@ -27,5 +27,17 @@ class InfoAplication with ChangeNotifier {
   String get nameSubApp2 => _nameSubApp2;
   set nameSubApp2(String value) => _nameSubApp2 = value;
 
+  List _asignatura = [
+    'LENGUA Y COMUNICACIÓN II',
+    'INGLÉS II',
+    'PENSAMIENTO MATEMÁTICO II',
+    'CULTURA DIGITAL',
+  ];
+
+  List get asignatura => _asignatura;
+
+  set asignatura(List value) {
+    _asignatura = value;
+  }
   //String
 }

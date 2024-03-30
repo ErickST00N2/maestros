@@ -98,7 +98,7 @@ class MenuLateral extends StatelessWidget {
                 ListTile(
                   title: const Text("Registrar Asistencia"),
                   leading: Icon(
-                      color: Color(ColoresApp.fuerte3), Icons.qr_code_scanner),
+                      color: Color(ColoresApp.fuerte3), Icons.barcode_reader),
                   onTap: () => Routes.showScreen(_, 'register_attendance'),
                 ),
               ],

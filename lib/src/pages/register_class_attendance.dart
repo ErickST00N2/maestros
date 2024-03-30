@@ -1,17 +1,30 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/util/colores.dart';
 import 'package:maestros/src/widgets/menu/menu_lateral.dart';
+import 'package:maestros/src/widgets/pie_pagina/pie_pagina.dart';
 import 'package:maestros/src/widgets/showSnackBar.dart';
+import 'package:maestros/src/widgets/student_list_attendance/register_attendance_qr_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
-class RegisterClassAttendance extends StatelessWidget {
+class RegisterClassAttendance extends StatefulWidget {
   RegisterClassAttendance({super.key});
+
+  @override
+  State<RegisterClassAttendance> createState() =>
+      _RegisterClassAttendanceState();
+}
+
+class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
   final _qrBarCodeScannerDialogPlugin = QrBarCodeScannerDialog();
+
   final ColoresApp cAplication = ColoresApp();
+
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: const MenuLateral(),
       backgroundColor: Colors.white,
@@ -27,31 +40,63 @@ class RegisterClassAttendance extends StatelessWidget {
         backgroundColor: cAplication.colorDelAppBar,
       ),
       body: SingleChildScrollView(
-        child: Center(
-            child: ElevatedButton(
-          onPressed: () {
-            _qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
-              context: context,
-              onCode: (code) {
-                try {
-                  int numControl = int.parse(code.toString());
-                  context
-                      .read<StudentForm>()
-                      .setStudent(numControl)
-                      .whenComplete(() => ShowSnackBar(context: context)
-                          .showSnackBarMessage(
-                              true, 'Asistencia registrada correctamente'));
-                } catch (e) {
-                  ShowSnackBar(context: context).showSnackBarMessage(false,
-                      'No se puede registrar la asistencia del alumno. Error: $e');
-                  debugPrint("Este es el catch del qr scanner dialog$e");
-                }
-              },
-            );
-          },
-          child: const Text('Scanear Código QR'),
-        )),
+        child: Container(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              children: [
+                //Escanear Código QR para registrar asistencia
+                const AutoSizeText(
+                  'Escanea el Código QR para registrar la asistencia.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.justify,
+                  minFontSize: 10,
+                  maxLines: 1,
+                  maxFontSize: 30,
+                ),
+                const SizedBox(height: 20),
+                RegisterAttendanceQrScanner(),
+
+                //
+                const SizedBox(height: 20),
+                const Divider(
+                  color: Colors.grey,
+                  height: 1,
+                ),
+                const AutoSizeText(
+                  'o',
+                  style: TextStyle(fontSize: 13),
+                  minFontSize: 8,
+                  maxLines: 1,
+                  maxFontSize: 18,
+                ),
+                const Divider(
+                  color: Colors.grey,
+                  height: 1,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const AutoSizeText(
+                  'Rellena los campos para registrar la asistencia mediante un listado de los alumnos matriculados en la clase.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.justify,
+                  minFontSize: 10,
+                  maxLines: 4,
+                  maxFontSize: 30,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
+      bottomSheet: const PiePagina(),
     );
   }
 }
