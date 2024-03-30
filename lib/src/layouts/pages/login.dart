@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/services/auth.dart';
 
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:provider/provider.dart';
 
 /// [Login] - Widget que representa la pantalla de inicio de sesión.

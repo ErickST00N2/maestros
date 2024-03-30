@@ -4,8 +4,8 @@ import 'package:maestros/src/providers/list_incidents.dart';
 
 import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/providers/user.dart';
-import 'package:maestros/src/util/colores.dart';
-import 'package:maestros/src/util/info.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
+import 'package:maestros/src/layouts/util/info.dart';
 
 import 'package:maestros/src/layouts/widgets/add_incidents/dropmenu.dart';
 import 'package:maestros/src/layouts/widgets/util/showSnackBar.dart';

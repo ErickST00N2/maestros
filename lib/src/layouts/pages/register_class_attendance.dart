@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
 import 'package:maestros/src/layouts/widgets/util/pie_pagina/pie_pagina.dart';
 import 'package:maestros/src/layouts/widgets/student_list_attendance/register_attendance_qr_scanner.dart';
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 
 class RegisterClassAttendance extends StatefulWidget {
   const RegisterClassAttendance({super.key});
@@ -18,7 +18,6 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
 
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: const MenuLateral(),
       backgroundColor: Colors.white,
@@ -90,7 +89,7 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
           ),
         ),
       ),
-      bottomSheet: const PiePagina(),
+      bottomNavigationBar: const FooterWidget(),
     );
   }
 }

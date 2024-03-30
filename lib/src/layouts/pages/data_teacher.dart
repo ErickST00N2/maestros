@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:maestros/src/providers/user.dart';
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 
 import 'package:maestros/src/layouts/widgets/credential/credential_users.dart';
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
@@ -81,7 +81,7 @@ class _DataTeacherState extends State<DataTeacher> {
         },
       ),
       drawer: const MenuLateral(),
-      bottomNavigationBar: const PiePagina(),
+      bottomNavigationBar: const FooterWidget(),
     );
   }
 

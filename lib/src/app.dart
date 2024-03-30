@@ -5,7 +5,7 @@ import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/router/routes.dart';
 import 'package:maestros/src/services/auth.dart';
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -58,12 +58,14 @@ class MyApp extends StatelessWidget {
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              textStyle: const TextStyle(color: Colors.white),
+              textStyle: const TextStyle(
+                color: Colors.white,
+              ),
               foregroundColor: Color(cAplication.bajo),
               backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             ),
           ),
-          fontFamily: GoogleFonts.playfair().fontFamily,
+          fontFamily: GoogleFonts.ptSerif().fontFamily,
         ),
         color: Color(cAplication.fuerteMedio),
         initialRoute: Routes.initialRoute,
