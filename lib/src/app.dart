@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             ),
           ),
-          fontFamily: GoogleFonts.dmSerifDisplay().fontFamily,
+          fontFamily: GoogleFonts.playfair().fontFamily,
         ),
         color: Color(cAplication.fuerteMedio),
         initialRoute: Routes.initialRoute,
