@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/util/colores.dart';
-import 'package:maestros/src/widgets/add_incidents/add_incidents_form.dart';
-import 'package:maestros/src/widgets/menu/menu_lateral.dart';
-import 'package:maestros/src/widgets/showSnackBar.dart';
+import 'package:maestros/src/layouts/widgets/add_incidents/add_incidents_form.dart';
+import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
+import 'package:maestros/src/layouts/widgets/util/showSnackBar.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 

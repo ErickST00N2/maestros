@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_flip_card/flutter_flip_card.dart';
-import 'package:maestros/src/widgets/credential/credential_back.dart';
-import 'package:maestros/src/widgets/credential/credential_front.dart';
+import 'package:maestros/src/layouts/widgets/credential/credential_back.dart';
+import 'package:maestros/src/layouts/widgets/credential/credential_front.dart';
 
 ///@ErickST00N
 ///@lexisdez@gmail.com

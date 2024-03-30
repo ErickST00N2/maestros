@@ -3,7 +3,7 @@ import 'package:maestros/src/providers/user.dart';
 
 import 'package:maestros/src/router/routes.dart';
 import 'package:maestros/src/util/colores.dart';
-import 'package:maestros/src/widgets/menu/show_option_user.dart';
+import 'package:maestros/src/layouts/widgets/menu/show_option_user.dart';
 import 'package:provider/provider.dart';
 
 @immutable

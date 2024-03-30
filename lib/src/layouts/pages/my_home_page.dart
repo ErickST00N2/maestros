@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:maestros/src/widgets/menu/menu_lateral.dart';
+import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});

@@ -5,8 +5,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:maestros/src/pages/login.dart';
-import 'package:maestros/src/pages/my_home_page.dart';
+import 'package:maestros/src/layouts/pages/login.dart';
+import 'package:maestros/src/layouts/pages/my_home_page.dart';
 import 'package:maestros/src/services/auth.dart';
 import 'package:provider/provider.dart';
 

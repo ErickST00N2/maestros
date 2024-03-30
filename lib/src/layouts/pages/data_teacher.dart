@@ -5,9 +5,9 @@ import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/util/colores.dart';
 
-import 'package:maestros/src/widgets/credential/credential_users.dart';
-import 'package:maestros/src/widgets/menu/menu_lateral.dart';
-import 'package:maestros/src/widgets/pie_pagina/pie_pagina.dart';
+import 'package:maestros/src/layouts/widgets/credential/credential_users.dart';
+import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
+import 'package:maestros/src/layouts/widgets/util/pie_pagina/pie_pagina.dart';
 import 'package:provider/provider.dart';
 
 class DataTeacher extends StatefulWidget {

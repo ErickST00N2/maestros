@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/util/colores.dart';
-import 'package:maestros/src/widgets/showSnackBar.dart';
+import 'package:maestros/src/layouts/widgets/util/showSnackBar.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:maestros/src/pages/about.dart';
-import 'package:maestros/src/pages/add_incidents.dart';
-import 'package:maestros/src/pages/alum_incident.dart';
-import 'package:maestros/src/pages/data_teacher.dart';
-import 'package:maestros/src/pages/incident_list.dart';
-import 'package:maestros/src/pages/login.dart';
-import 'package:maestros/src/pages/my_home_page.dart';
-import 'package:maestros/src/pages/register.dart';
-import 'package:maestros/src/pages/register_class_attendance.dart';
-import 'package:maestros/src/pages/tutorial.dart';
-import 'package:maestros/src/pages/welcom.dart';
+import 'package:maestros/src/layouts/pages/about.dart';
+import 'package:maestros/src/layouts/pages/add_incidents.dart';
+import 'package:maestros/src/layouts/pages/alum_incident.dart';
+import 'package:maestros/src/layouts/pages/data_teacher.dart';
+import 'package:maestros/src/layouts/pages/incident_list.dart';
+import 'package:maestros/src/layouts/pages/login.dart';
+import 'package:maestros/src/layouts/pages/my_home_page.dart';
+import 'package:maestros/src/layouts/pages/register.dart';
+import 'package:maestros/src/layouts/pages/register_class_attendance.dart';
+import 'package:maestros/src/layouts/pages/tutorial.dart';
+import 'package:maestros/src/layouts/pages/welcom.dart';
 import 'package:maestros/src/services/auth.dart';
 
 import 'package:provider/provider.dart';
@@ -31,7 +31,7 @@ class Routes {
       case '/register_attendance':
         return _checkAuthAndNavigate(
           settings,
-          RegisterClassAttendance(),
+          const RegisterClassAttendance(),
         );
       case '/alumn_incident':
         return _checkAuthAndNavigate(

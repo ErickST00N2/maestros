@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:maestros/src/util/colores.dart';
 import 'package:maestros/src/util/info.dart';
 
-import 'package:maestros/src/widgets/menu/menu_lateral.dart';
-import 'package:maestros/src/widgets/pie_pagina/pie_pagina.dart';
+import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
+import 'package:maestros/src/layouts/widgets/util/pie_pagina/pie_pagina.dart';
 
 class AboutPage extends StatelessWidget {
   AboutPage({super.key});

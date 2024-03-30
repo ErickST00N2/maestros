@@ -60,12 +60,13 @@ dependencies:
   #Dependencias para la barra de busqueda
 
   accordion: ^2.6.0
-  searchfield: ^0.9.2
+  searchfield: ^1.0.1
   searchbar_animation: ^0.0.4
   flutter_form_builder: ^9.2.1
   auto_size_text: ^3.0.0
   omni_datetime_picker: ^1.0.9
   intl: ^0.19.0
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

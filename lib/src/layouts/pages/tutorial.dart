@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:maestros/src/widgets/menu/menu_lateral.dart';
+import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
 
 class Tutorial extends StatefulWidget {
   const Tutorial({super.key});

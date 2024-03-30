@@ -7,8 +7,8 @@ import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/util/colores.dart';
 import 'package:maestros/src/util/info.dart';
 
-import 'package:maestros/src/widgets/add_incidents/dropmenu.dart';
-import 'package:maestros/src/widgets/showSnackBar.dart';
+import 'package:maestros/src/layouts/widgets/add_incidents/dropmenu.dart';
+import 'package:maestros/src/layouts/widgets/util/showSnackBar.dart';
 
 import 'package:provider/provider.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';

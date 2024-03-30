@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/list_incidents.dart';
 
 import 'package:maestros/src/providers/user.dart';
-import 'package:maestros/src/widgets/menu/menu_lateral.dart'; // Importa el menú lateral personalizado
+import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart'; // Importa el menú lateral personalizado
 import 'package:provider/provider.dart';
 
-import '../widgets/list_item.dart'; // Importa el widget de elemento de lista personalizado
+import '../widgets/incident_list/list_item.dart'; // Importa el widget de elemento de lista personalizado
 
 class IncidentListPage extends StatelessWidget {
   IncidentListPage({super.key});
