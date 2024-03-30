@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
-
-import 'package:maestros/src/layouts/widgets/register_class_attendance/register_attendance_qr_scanner.dart';
+import 'package:maestros/src/layouts/widgets/register_class_attendance/form_register_class_attendance/form_register_class_attendance.dart';
+import 'package:maestros/src/layouts/widgets/register_class_attendance/register_attendance_qr_scanner/register_attendance_qr_scanner.dart';
 import 'package:maestros/src/layouts/util/colores.dart';
 
 class RegisterClassAttendance extends StatefulWidget {
@@ -84,6 +84,9 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
                   maxLines: 4,
                   maxFontSize: 30,
                 ),
+                const SizedBox(height: 20),
+
+                FormRegisterClassAttendance(),
               ],
             ),
           ),
