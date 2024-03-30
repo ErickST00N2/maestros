@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
-import 'package:maestros/src/layouts/widgets/util/pie_pagina/pie_pagina.dart';
-import 'package:maestros/src/layouts/widgets/student_list_attendance/register_attendance_qr_scanner.dart';
+
+import 'package:maestros/src/layouts/widgets/register_class_attendance/register_attendance_qr_scanner.dart';
 import 'package:maestros/src/layouts/util/colores.dart';
 
 class RegisterClassAttendance extends StatefulWidget {
@@ -89,7 +89,6 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
           ),
         ),
       ),
-      bottomNavigationBar: const FooterWidget(),
     );
   }
 }

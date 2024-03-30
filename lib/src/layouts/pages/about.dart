@@ -3,7 +3,7 @@ import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:maestros/src/layouts/util/info.dart';
 
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
-import 'package:maestros/src/layouts/widgets/util/pie_pagina/pie_pagina.dart';
+import 'package:maestros/src/layouts/widgets/util/footer_widget/footer_widget.dart';
 
 class AboutPage extends StatelessWidget {
   AboutPage({super.key});

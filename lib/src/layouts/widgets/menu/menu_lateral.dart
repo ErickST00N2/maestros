@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maestros/src/layouts/widgets/util/footer_widget/footer_widget.dart';
 import 'package:maestros/src/providers/user.dart';
 
 import 'package:maestros/src/router/routes.dart';
@@ -128,6 +129,7 @@ class MenuLateral extends StatelessWidget {
           endIndent: 0,
           color: Colors.black38,
         ),
+        FooterWidget()
       ],
     );
   }
