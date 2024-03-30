@@ -7,7 +7,6 @@ import 'package:maestros/src/layouts/widgets/util/footer_widget/footer_widget.da
 
 class AboutPage extends StatelessWidget {
   AboutPage({super.key});
-  final InfoAplication infoAplication = InfoAplication();
   final ColoresApp cAplication = ColoresApp();
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class AboutPage extends StatelessWidget {
           children: [
             Text(
               textAlign: TextAlign.justify,
-              infoAplication.nameApp,
+              InfoAplication().nameApp,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

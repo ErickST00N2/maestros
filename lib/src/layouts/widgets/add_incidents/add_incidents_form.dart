@@ -335,7 +335,6 @@ class FormViewAddIncidents extends StatelessWidget {
               ///
 
               FormBuilderCheckboxGroup(
-                //disabled: ['Falta de Asistencia'],
                 separator: const Divider(),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -352,7 +351,6 @@ class FormViewAddIncidents extends StatelessWidget {
                 controlAffinity: ControlAffinity.leading,
                 name: 'Incidencias',
                 activeColor: Color(cAplication.medio),
-
                 orientation: OptionsOrientation.vertical,
                 onChanged: (value) {
                   //incidentsSelected = value as List<String>;

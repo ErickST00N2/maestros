@@ -53,7 +53,7 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
                 const SizedBox(height: 20),
                 RegisterAttendanceQrScanner(),
 
-                //
+                //Formulario de asistencia
                 const SizedBox(height: 20),
                 const Divider(
                   color: Colors.grey,
@@ -74,7 +74,8 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
                   height: 20,
                 ),
                 const AutoSizeText(
-                  'Rellena los campos para registrar la asistencia mediante un listado de los alumnos matriculados en la clase.',
+                  'Rellena los campos para registrar la asistencia mediante un' +
+                      ' listado de los alumnos matriculados en la clase.',
                   style: TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.italic,

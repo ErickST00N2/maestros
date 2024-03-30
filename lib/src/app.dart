@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maestros/src/providers/list_incidents.dart';
+import 'package:maestros/src/providers/register_class_attendance/provider_register_class_attendance.dart';
 import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/router/routes.dart';
@@ -30,6 +31,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<StudentForm>(
           create: (_) => StudentForm(),
         ),
+        ChangeNotifierProvider<ProviderRegisterClassAttendance>(
+          create: (_) => ProviderRegisterClassAttendance(),
+        ),
+        ChangeNotifierProvider<RegisterClassAttendance>(
+            create: (_) => RegisterClassAttendance())
       ],
       child: MaterialApp(
         debugShowMaterialGrid: false,
