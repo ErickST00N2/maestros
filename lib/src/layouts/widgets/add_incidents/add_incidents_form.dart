@@ -504,8 +504,8 @@ class FormViewAddIncidents extends StatelessWidget {
       context.read<StudentForm>().comentarios,
       context.read<StudentForm>().incidencia,
       context.read<StudentForm>().dateReport,
-      context.read<Users>().idMaestros,
-      context.read<Users>().uid
+      context.read<UserModel>().idMaestros,
+      context.read<UserModel>().uid
     ];
     debugPrint('Incidencias: $incidents');
     dynamic onErrorShow;

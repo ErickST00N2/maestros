@@ -68,6 +68,8 @@ dependencies:
   #Dependencias el texto  
   google_fonts: ^6.2.1
   auto_size_text: ^3.0.0
+  # pdf: ^3.10.8
+  # printing: ^5.12.0
 
 dev_dependencies:
   flutter_test:

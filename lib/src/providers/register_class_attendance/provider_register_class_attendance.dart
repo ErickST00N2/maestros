@@ -186,7 +186,7 @@ class RegisterClassAttendance with ChangeNotifier {
       AuthService authService = AuthService();
       // Registra la asistencia del estudiante a la clase en la base de datos
       await authService.db.collection("AsistenciaClase").doc().set({
-        'Maestros_idMaestros': Users().idMaestros,
+        'Maestros_idMaestros': UserModel().idMaestros,
         'classTime': DateTime.now(),
         'materia': materia,
         'numControl': numControl.toString(),

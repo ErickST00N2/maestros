@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:maestros/src/providers/user.dart';
+import 'package:provider/provider.dart';
 
 /// [AuthService] - Clase que maneja la autenticación del usuario.
 /// Utiliza FirebaseAuth para interactuar con Firebase Authentication.
@@ -22,7 +23,7 @@ class AuthService with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   /// USER [_user] - Devuelve la instancia con la clase Users
-  late final Users _user = Users();
+  late final UserModel _user = UserModel();
 
   /// DB [_db] - Devuelve la instancia al firestore.
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -59,12 +60,12 @@ class AuthService with ChangeNotifier {
   AuthStatus get status => _status;
 
   /// USER [user] - Devuelve la instancia con la clase Users
-  Users get user => _user;
+  UserModel get user => _user;
 
   /// [signInWithEmailAndPassword] - Método para iniciar sesión con correo electrónico y contraseña.
   /// Actualiza el estado de autenticación y notifica a los oyentes sobre el cambio de estado.
   Future<User?> signInWithEmailAndPassword(
-      String email, String password) async {
+      BuildContext context, String email, String password) async {
     _status = AuthStatus.Authenticating;
     notifyListeners();
     try {
@@ -81,14 +82,22 @@ class AuthService with ChangeNotifier {
       if (userDoc['TypeUsers'] == 'Maestros') {
         userDoc = await _db.collection('Maestros').doc(user.uid).get();
         _user.setFromFireStore(userDoc);
+        context.read<UserModel>().error = false;
+        context.read<UserModel>().errorMessage = '';
         notifyListeners();
         await updateUserData(user);
         return user;
       } else {
+        context.read<UserModel>().error = true;
+        if (userDoc['TypeUsers'] == 'TestUser') {
+          context.read<UserModel>().errorMessage = 'La cuenta de correo esta '
+              'asociada a una cuenta de Test Vocacional, intenta con otro correo';
+        }
         signOut();
         return null;
       }
     } catch (e) {
+      context.read<UserModel>().errorMessage = e.toString();
       _status = AuthStatus.Unauthenticated;
       notifyListeners();
       return null;

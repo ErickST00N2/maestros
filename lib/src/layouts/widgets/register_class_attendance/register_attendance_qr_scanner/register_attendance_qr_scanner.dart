@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/register_class_attendance/provider_register_class_attendance.dart';
-import 'package:maestros/src/providers/student_form_provider.dart';
+
 import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:maestros/src/layouts/widgets/util/showSnackBar.dart';
 import 'package:maestros/src/util/extrar_id.dart';

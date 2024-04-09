@@ -21,7 +21,7 @@ class _DataTeacherState extends State<DataTeacher> {
   ColoresApp cAplication = ColoresApp();
   Timer? _timer;
   bool _hasError = false;
-  Users? _maestro; // Variable para almacenar el objeto Maestro
+  UserModel? _maestro; // Variable para almacenar el objeto Maestro
 
   @override
   void initState() {
@@ -86,7 +86,7 @@ class _DataTeacherState extends State<DataTeacher> {
   }
 
   Future<void> loadMaestroData(BuildContext context) async {
-    _maestro = Provider.of<Users>(context, listen: false);
+    _maestro = Provider.of<UserModel>(context, listen: false);
     await _maestro!.getUserData(_maestro!.authService.firebaseUser);
   }
 }

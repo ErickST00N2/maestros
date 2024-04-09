@@ -52,10 +52,10 @@ class MenuLateral extends StatelessWidget {
           decoration: BoxDecoration(
             color: Color(ColoresApp.fuerte3),
           ),
-          accountName: Text(_.watch<Users>().nombre),
-          accountEmail: Text(_.watch<Users>().correo),
+          accountName: Text(_.watch<UserModel>().nombre),
+          accountEmail: Text(_.watch<UserModel>().correo),
           currentAccountPicture: CircleAvatar(
-            backgroundImage: _.watch<Users>().getPhotoURL(),
+            backgroundImage: _.watch<UserModel>().getPhotoURL(),
           ),
         ),
         ListBody(

@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:maestros/src/services/auth.dart';
 
-class Users with ChangeNotifier {
-  static final Users _instancia = Users._private();
+class UserModel with ChangeNotifier {
+  static final UserModel _instancia = UserModel._private();
   final AuthService authService = AuthService();
 
   DocumentReference? _carrerasIdCarreras;
@@ -44,15 +44,27 @@ class Users with ChangeNotifier {
   String _especialidad = 'Cargando...';
 
   int _numTel = 0;
+  String errorCode = '';
+
+  bool _error = false;
+
+  bool get error => _error;
+
+  set error(bool value) {
+    _error = value;
+    notifyListeners();
+  }
+
+  String _errorMessage = '';
 
   String _blooType = 'Cargando...';
 
-  factory Users() {
+  factory UserModel() {
     _instancia.getUserData(_instancia.authService.firebaseUser);
     return _instancia;
   }
 
-  Users._private();
+  UserModel._private();
 
   String get blooType => _blooType;
 
@@ -100,6 +112,13 @@ class Users with ChangeNotifier {
 
   set direccion(String value) {
     _direccion = value;
+    notifyListeners();
+  }
+
+  String get errorMessage => _errorMessage;
+
+  set errorMessage(String value) {
+    _errorMessage = value;
     notifyListeners();
   }
 
@@ -248,7 +267,7 @@ class Users with ChangeNotifier {
       }
 
       //Maestros
-      DocumentSnapshot studentSnapshot = await authService.db
+      DocumentSnapshot maestroSnapshot = await authService.db
           .collection('Maestros')
           .doc(firebaseUser.uid)
           .get();
@@ -260,12 +279,12 @@ class Users with ChangeNotifier {
               .doc('jf7Pdk4pcks2DBufia5U')
               .get();
 
-      if (!studentSnapshot.exists) {
-        throw Exception("El documento del Alumno no existe.");
+      if (!maestroSnapshot.exists) {
+        throw Exception("El documento del Maestro no existe.");
       } else if (!modificationOfCchoolCredentialSnapshot.exists) {
         throw Exception("El documento de la credencial no existe.");
       }
-      _instancia.setFromFireStore(studentSnapshot);
+      _instancia.setFromFireStore(maestroSnapshot);
       //ModificationOfCchoolCredential
       typeSystem = modificationOfCchoolCredentialSnapshot['TypeSystem'];
       turn = modificationOfCchoolCredentialSnapshot['Turn'];

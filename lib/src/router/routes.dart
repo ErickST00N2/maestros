@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maestros/src/layouts/pages/about.dart';
 import 'package:maestros/src/layouts/pages/add_incidents.dart';
@@ -6,6 +7,7 @@ import 'package:maestros/src/layouts/pages/data_teacher.dart';
 import 'package:maestros/src/layouts/pages/incident_list.dart';
 import 'package:maestros/src/layouts/pages/login.dart';
 import 'package:maestros/src/layouts/pages/my_home_page.dart';
+import 'package:maestros/src/layouts/pages/pdf_report_incident.dart';
 import 'package:maestros/src/layouts/pages/register.dart';
 import 'package:maestros/src/layouts/pages/register_class_attendance.dart';
 import 'package:maestros/src/layouts/pages/tutorial.dart';
@@ -43,6 +45,10 @@ class Routes {
           settings,
           IncidentListPage(),
         );
+      // case '/pdf_report_incident':
+      //   return _checkAuthAndNavigate(settings,
+      //       PdfReportIncident(docRef: settings.arguments as DocumentReference));
+
       case '/login':
         return _checkAuthAndNavigate(settings, const Login());
       case '/register':

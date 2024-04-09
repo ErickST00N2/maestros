@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:maestros/src/layouts/util/info.dart';
 import 'package:maestros/src/layouts/util/responsive/responsive_design.dart';
-import 'package:maestros/src/layouts/widgets/register_class_attendance/form_register_class_attendance/form_builder_dropdown_register_class_attendance.dart';
+
 import 'package:maestros/src/layouts/widgets/register_class_attendance/form_register_class_attendance/list_dropdown_register.dart';
 import 'package:maestros/src/providers/register_class_attendance/provider_register_class_attendance.dart';
 import 'package:provider/provider.dart';

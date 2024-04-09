@@ -47,6 +47,18 @@ class ListIncidents with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> getReportStudent(DocumentReference docRef) async {}
+
+  Future<void> deleteReport(
+      {required BuildContext context,
+      required DocumentReference docRef}) async {
+    try {
+      await docRef.delete();
+    } catch (e) {
+      debugPrint('Error al eliminar el documento: $e');
+    }
+  }
+
   ///Carga una lista de incidencias desde Firestore en la lista de incidencias.
   ///Se utiliza en el widget de la lista de incidencias.
   Future<List<DocumentSnapshot>> getReportes(BuildContext context) async {
@@ -55,7 +67,7 @@ class ListIncidents with ChangeNotifier {
     // Llama al método getMaestroData del maestro para obtener los datos.
 
     // Imprimir el id del maestro
-    debugPrint('El id es:${context.watch<Users>().idMaestros}');
+    debugPrint('El id es:${context.watch<UserModel>().idMaestros}');
 
     // Realizar una consulta en la colección "Reporte" para obtener los reportes
     // del maestro especificado.
@@ -64,7 +76,7 @@ class ListIncidents with ChangeNotifier {
         .db
         .collection("Reporte")
         .where("Maestros_idMaestros",
-            isEqualTo: context.watch<Users>().idMaestros)
+            isEqualTo: context.read<UserModel>().idMaestros)
         .get();
     setSizeListIncidents = queryReporte.docs.length;
     // Imprimir el primer nombre de alumno en el primer documento de la consulta.
