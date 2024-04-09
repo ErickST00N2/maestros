@@ -138,7 +138,7 @@ class FormViewAddIncidents extends StatelessWidget {
                 isOriginalAnimation: true,
                 enableKeyboardFocus: true,
                 onChanged: (value) {
-                  context.watch<StudentForm>().numControl = int.parse(value);
+                  context.read<StudentForm>().numControl = int.parse(value);
                   debugPrint('onChanged: $value');
                 },
                 enteredTextStyle: const TextStyle(fontStyle: FontStyle.italic),

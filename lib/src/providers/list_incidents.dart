@@ -53,7 +53,10 @@ class ListIncidents with ChangeNotifier {
       {required BuildContext context,
       required DocumentReference docRef}) async {
     try {
-      await docRef.delete();
+      await docRef
+          .delete()
+          .whenComplete(() => debugPrint('Documento eliminado correctamente'
+              'La referencia del documento es: $docRef'));
     } catch (e) {
       debugPrint('Error al eliminar el documento: $e');
     }
@@ -81,6 +84,8 @@ class ListIncidents with ChangeNotifier {
     setSizeListIncidents = queryReporte.docs.length;
     // Imprimir el primer nombre de alumno en el primer documento de la consulta.
     debugPrint('La consulta es:${queryReporte.docs.length}');
+    debugPrint(
+        'La consulta es de documentos es:${queryReporte.docs[0]['Alumnos_Nombre']}');
     incidents = queryReporte.docs;
     notifyListeners();
     // Devolver los documentos de la consulta.
