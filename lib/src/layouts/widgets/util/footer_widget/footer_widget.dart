@@ -1,9 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:maestros/src/layouts/util/info.dart';
 
-class PiePagina extends StatelessWidget {
-  const PiePagina({super.key});
+class FooterWidget extends StatelessWidget {
+  const FooterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,9 @@ class PiePagina extends StatelessWidget {
                   '© 2024 Erick González Cortes. Todos los derechos reservados.',
               style: TextStyle(color: Colors.black, fontSize: 8),
             ),
-            const TextSpan(
-              text: ' Versión: 1.0.1',
-              style: TextStyle(color: Colors.black, fontSize: 8),
+            TextSpan(
+              text: InfoAplication().versionApp,
+              style: const TextStyle(color: Colors.black, fontSize: 8),
             ),
             TextSpan(
               text: ' Ver licencias del software',
@@ -32,12 +33,13 @@ class PiePagina extends StatelessWidget {
                 ..onTap = () {
                   showDialog(
                     context: context,
-                    builder: (_) => const AboutDialog(
-                      applicationName: 'Credenciales QR',
-                      applicationVersion: 'Versión: 1.0.0',
+                    builder: (_) => AboutDialog(
+                      applicationName:
+                          '${InfoAplication().nameApp}\n${InfoAplication().nameSubApp}',
+                      applicationVersion: InfoAplication().versionApp,
                       applicationIcon: Icon(Icons.credit_card),
                       applicationLegalese:
-                          '© 2024 Erick González Cortes. Todos los derechos reservados.',
+                          '© 2024 ${InfoAplication().nameDeveloper}. Todos los derechos reservados.',
                     ),
                   );
                 },

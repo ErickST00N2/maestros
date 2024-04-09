@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maestros/src/providers/list_incidents.dart';
+import 'package:maestros/src/providers/register_class_attendance/provider_register_class_attendance.dart';
 import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/router/routes.dart';
 import 'package:maestros/src/services/auth.dart';
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -18,8 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<Users>(
-          create: (_) => Users(),
+        ChangeNotifierProvider<UserModel>(
+          create: (_) => UserModel(),
         ),
         ChangeNotifierProvider<AuthService>(
           create: (_) => AuthService(),
@@ -30,6 +31,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<StudentForm>(
           create: (_) => StudentForm(),
         ),
+        ChangeNotifierProvider<ProviderRegisterClassAttendance>(
+          create: (_) => ProviderRegisterClassAttendance(),
+        ),
+        ChangeNotifierProvider<RegisterClassAttendance>(
+            create: (_) => RegisterClassAttendance())
       ],
       child: MaterialApp(
         debugShowMaterialGrid: false,
@@ -58,12 +64,14 @@ class MyApp extends StatelessWidget {
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              textStyle: const TextStyle(color: Colors.white),
+              textStyle: const TextStyle(
+                color: Colors.white,
+              ),
               foregroundColor: Color(cAplication.bajo),
               backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             ),
           ),
-          fontFamily: GoogleFonts.playfair().fontFamily,
+          fontFamily: GoogleFonts.ptSerif().fontFamily,
         ),
         color: Color(cAplication.fuerteMedio),
         initialRoute: Routes.initialRoute,

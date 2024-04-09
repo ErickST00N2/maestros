@@ -12,7 +12,7 @@ class IncidentListPage extends StatelessWidget {
   IncidentListPage({super.key});
   // Constructor de la clase IncidentList
 
-  final Users maestro = Users();
+  final UserModel maestro = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,14 @@ class IncidentListPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final nameAlumn = incidents[index]['Alumnos_Nombre'];
 
-                    return ListItem(nameAlumn: nameAlumn);
+                    return ListItem(
+                      nameAlumn: nameAlumn,
+                      semestre: incidents[index]['Semestre'],
+                      grupo: incidents[index]['Grupo'],
+                      especialidad: incidents[index]['Especialidad'],
+                      comentarios: incidents[index]['Comentarios'],
+                      docRef: incidents[index].reference,
+                    );
                   },
                 ),
               );

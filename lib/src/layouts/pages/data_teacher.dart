@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:maestros/src/providers/user.dart';
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 
 import 'package:maestros/src/layouts/widgets/credential/credential_users.dart';
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
-import 'package:maestros/src/layouts/widgets/util/pie_pagina/pie_pagina.dart';
+import 'package:maestros/src/layouts/widgets/util/footer_widget/footer_widget.dart';
 import 'package:provider/provider.dart';
 
 class DataTeacher extends StatefulWidget {
@@ -21,7 +21,7 @@ class _DataTeacherState extends State<DataTeacher> {
   ColoresApp cAplication = ColoresApp();
   Timer? _timer;
   bool _hasError = false;
-  Users? _maestro; // Variable para almacenar el objeto Maestro
+  UserModel? _maestro; // Variable para almacenar el objeto Maestro
 
   @override
   void initState() {
@@ -81,12 +81,12 @@ class _DataTeacherState extends State<DataTeacher> {
         },
       ),
       drawer: const MenuLateral(),
-      bottomNavigationBar: const PiePagina(),
+      bottomNavigationBar: const FooterWidget(),
     );
   }
 
   Future<void> loadMaestroData(BuildContext context) async {
-    _maestro = Provider.of<Users>(context, listen: false);
+    _maestro = Provider.of<UserModel>(context, listen: false);
     await _maestro!.getUserData(_maestro!.authService.firebaseUser);
   }
 }

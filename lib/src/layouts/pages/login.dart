@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/services/auth.dart';
 
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:provider/provider.dart';
 
 /// [Login] - Widget que representa la pantalla de inicio de sesión.
@@ -18,7 +18,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   Duration get loginTime => const Duration(milliseconds: 2250);
 
-  bool messageError = false;
+  // bool messageError = false;
   bool _showPassword = false;
   late ColoresApp _cApp;
   // Controladores para los campos de texto de correo electrónico y contraseña.
@@ -136,6 +136,7 @@ class _LoginState extends State<Login> {
                               obscureText: !_showPassword,
                               decoration: InputDecoration(
                                 //labelText: "Contraseña",
+                                hintText: 'Contraseña',
 
                                 prefixIcon: const Icon(
                                   Icons.lock_person,
@@ -195,16 +196,16 @@ class _LoginState extends State<Login> {
                             const SizedBox(
                               height: 20,
                             ),
-                            if (messageError)
+                            if (context.watch<UserModel>().error)
                               ListTile(
-                                trailing: Icon(Icons.close),
+                                trailing: const Icon(Icons.close),
                                 onTap: () => setState(() {
-                                  messageError = false;
+                                  context.read<UserModel>().error = false;
                                 }),
                                 title: AutoSizeText(
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                   maxLines: 3,
-                                  'Estas intentando ingresar como Alumno en la aplicacion de Maestros',
+                                  context.watch<UserModel>().errorMessage,
                                 ),
                               )
                           ],
@@ -234,15 +235,19 @@ class _LoginState extends State<Login> {
       // Llama al método de inicio de sesión con correo electrónico y contraseña.
       //await AuthService.signInWithEmailAndPassword(email, password);
       User? user = await AuthService().signInWithEmailAndPassword(
-          _emailController.text, _passwordController.text);
+          context, _emailController.text, _passwordController.text);
 
       if (user != null) {
         debugPrint('El usuario $user esta autenticado satisfactoriamente');
-        context.read<Users>().getUserData(user);
-        messageError = false;
-        Navigator.pushNamed(context, '/');
+        context.read<UserModel>().getUserData(user);
+        context.read<UserModel>().error = false;
+        context.read<UserModel>().errorMessage = '';
+        // messageError = false;
+        Navigator.of(context).pop();
       } else {
-        messageError = true;
+        context.read<UserModel>().error = true;
+        // messageError = true;
+        context.read<UserModel>().errorMessage = 'Credenciales incorrectas';
         print('No se puede loggear el usuario');
       }
     }
