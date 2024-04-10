@@ -118,7 +118,6 @@ class FormViewAddIncidents extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Container(
-        width: 900,
         padding: const EdgeInsets.all(8.0),
         child: Form(
           key: _formKey,

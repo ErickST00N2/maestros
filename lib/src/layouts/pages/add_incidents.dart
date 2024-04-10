@@ -108,11 +108,18 @@ class AddIncidents extends StatelessWidget {
   /// El parámetro [context] es el contexto de construcción del widget.
   Widget _formContainer(BuildContext context) {
     // El widget Card representa una caja que tiene un efecto de sombra.
-    return Card(
-      child: Padding(
-        // El widget Padding agrega relleno a su widget hijo.
-        padding: const EdgeInsets.all(6.0),
-        child: FormViewAddIncidents(),
+    return SingleChildScrollView(
+      child: Center(
+        child: SizedBox(
+          width: 900,
+          child: Card(
+            child: Padding(
+              // El widget Padding agrega relleno a su widget hijo.
+              padding: const EdgeInsets.all(6.0),
+              child: FormViewAddIncidents(),
+            ),
+          ),
+        ),
       ),
     );
   }
