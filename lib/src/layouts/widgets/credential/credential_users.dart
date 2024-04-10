@@ -8,7 +8,6 @@ import 'package:maestros/src/layouts/widgets/credential/credential_front.dart';
 import 'package:maestros/src/layouts/widgets/credential/send_image_picker.dart';
 
 ///@ErickST00N
-///@lexisdez@gmail.com
 ///[buildDataTeacherContent] En la función buildDataTeacherContent es la CredentialCard
 ///que se muestra en la pantalla.
 ///Esta card es la responsable de unir los contenidos de los dos widget back y front.
