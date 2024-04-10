@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 import 'package:maestros/src/providers/list_incidents.dart';
 import 'package:maestros/src/providers/register_class_attendance/provider_register_class_attendance.dart';
 import 'package:maestros/src/providers/student_form_provider.dart';
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             ),
           ),
-          fontFamily: GoogleFonts.ptSerif().fontFamily,
+          //fontFamily: GoogleFonts.oswald().fontFamily,
         ),
         color: Color(cAplication.fuerteMedio),
         initialRoute: Routes.initialRoute,

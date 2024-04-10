@@ -234,8 +234,20 @@ class _LoginState extends State<Login> {
 
       // Llama al método de inicio de sesión con correo electrónico y contraseña.
       //await AuthService.signInWithEmailAndPassword(email, password);
-      User? user = await AuthService().signInWithEmailAndPassword(
-          context, _emailController.text, _passwordController.text);
+      User? user = await AuthService()
+          .signInWithEmailAndPassword(
+              context, _emailController.text, _passwordController.text)
+          .then((value) {
+        context.read<UserModel>().error = true;
+        context.read<UserModel>().errorMessage =
+            'Credenciales incorrectas $value';
+      }).onError((error, stackTrace) {
+        context.read<UserModel>().error = true;
+        context.read<UserModel>().errorMessage =
+            'Credenciales incorrectas $error'
+            'El stack trace es $stackTrace';
+        return null;
+      });
 
       if (user != null) {
         debugPrint('El usuario $user esta autenticado satisfactoriamente');
@@ -245,10 +257,10 @@ class _LoginState extends State<Login> {
         // messageError = false;
         Navigator.of(context).pop();
       } else {
-        context.read<UserModel>().error = true;
-        // messageError = true;
-        context.read<UserModel>().errorMessage = 'Credenciales incorrectas';
-        print('No se puede loggear el usuario');
+        // context.read<UserModel>().error = true;
+        // // messageError = true;
+        // context.read<UserModel>().errorMessage = 'Credenciales incorrectas';
+        // print('No se puede loggear el usuario');
       }
     }
   }
