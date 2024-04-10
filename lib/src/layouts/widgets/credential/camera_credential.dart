@@ -49,7 +49,7 @@ class CameraCredential extends StatelessWidget {
           .putFile(newFile);
       debugPrint('Imagen subida con éxito');
     } on FirebaseException catch (e) {
-      debugPrint(e.message);
+      debugPrint('La imagen no se pudo subir: ${e.message}');
     }
   }
 }
