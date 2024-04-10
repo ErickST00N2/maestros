@@ -48,7 +48,7 @@ class AddIncidents extends StatelessWidget {
       ),
 
       // Body of the Scaffold, created by calling the private _formContainer method
-      body: _formContainer(context),
+      body: SingleChildScrollView(child: _formContainer(context)),
 
       // Drawer of the Scaffold, a MenuLateral widget
       drawer: const MenuLateral(),

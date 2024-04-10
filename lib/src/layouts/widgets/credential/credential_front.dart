@@ -12,7 +12,7 @@ Widget buildCardFront(BuildContext context, databaseUser, double pi) {
   /// nuestra credencial tendrá un ancho maximo de 700 pixeles o si sigue con
   /// el valor por defecto de 0.95.
   final maxWidthScreenCard =
-      (size.width > 800.0) ? (800.0) : (size.width * 0.95);
+      (size.width > 600.0) ? (600.0) : (size.width * 0.95);
 
   /// [relacionCredentialCardAspecto12] - Calculamos la relacion entre el ancho de la pantalla.
   final relacionCredentialCardAspecto12 = maxWidthScreenCard; //Equivalente a 12

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_flip_card/flutter_flip_card.dart';
+import 'package:maestros/src/layouts/widgets/credential/camera_credential.dart';
 import 'package:maestros/src/layouts/widgets/credential/credential_back.dart';
 import 'package:maestros/src/layouts/widgets/credential/credential_front.dart';
+import 'package:maestros/src/layouts/widgets/credential/send_image_picker.dart';
 
 ///@ErickST00N
 ///@lexisdez@gmail.com
@@ -19,12 +21,13 @@ Widget buildDataTeacherContent(BuildContext context, databaseUser,
     GestureFlipCardController controllerGestureFlipCardCredential) {
   const double pi = math.pi;
 
-  return SingleChildScrollView(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Center(
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: <Widget>[
+      Center(
+        child: SizedBox(
+          width: 600,
           child: GestureFlipCard(
             controller: controllerGestureFlipCardCredential,
             axis: FlipAxis.vertical,
@@ -34,20 +37,47 @@ Widget buildDataTeacherContent(BuildContext context, databaseUser,
             backWidget: buildCardBack(context, databaseUser, pi),
           ),
         ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5)),
-              elevation: 2,
-              minimumSize: const Size(120, 50)),
-          child: const Text('Flip Card'),
-          onPressed: () {
-            // Flip the card programmatically
+      ),
+      Row(
+        children: [
+          const Expanded(
+            flex: 1,
+            child: SizedBox(width: 20),
+          ),
+          Expanded(
+            flex: 3,
+            child: TextButton.icon(
+              icon: const Icon(Icons.flip_to_back),
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
+                  elevation: 2,
+                  minimumSize: const Size(120, 50)),
+              label: const Text('Voltear Credencial'),
+              onPressed: () {
+                // Flip the card programmatically
 
-            controllerGestureFlipCardCredential.flipcard();
-          },
-        ),
-      ],
-    ),
+                controllerGestureFlipCardCredential.flipcard();
+              },
+            ),
+          ),
+          const Expanded(
+            flex: 1,
+            child: SizedBox(width: 20),
+          ),
+          Expanded(
+            flex: 3,
+            child: CameraCredential(),
+          ),
+          const Expanded(
+            flex: 1,
+            child: SizedBox(width: 20),
+          ),
+        ],
+      ),
+      Center(
+        child: SendImagePicker(),
+      )
+    ],
   );
 }

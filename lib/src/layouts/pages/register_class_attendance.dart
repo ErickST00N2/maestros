@@ -36,59 +36,62 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
         child: Container(
           padding: const EdgeInsets.all(20.0),
           child: Center(
-            child: Column(
-              children: [
-                //Escanear Código QR para registrar asistencia
-                const AutoSizeText(
-                  'Escanea el Código QR para registrar la asistencia.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic,
+            child: SizedBox(
+              width: 900,
+              child: Column(
+                children: [
+                  //Escanear Código QR para registrar asistencia
+                  const AutoSizeText(
+                    'Escanea el Código QR para registrar la asistencia.',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    textAlign: TextAlign.justify,
+                    minFontSize: 10,
+                    maxLines: 1,
+                    maxFontSize: 30,
                   ),
-                  textAlign: TextAlign.justify,
-                  minFontSize: 10,
-                  maxLines: 1,
-                  maxFontSize: 30,
-                ),
-                const SizedBox(height: 20),
-                RegisterAttendanceQrScanner(),
+                  const SizedBox(height: 20),
+                  RegisterAttendanceQrScanner(),
 
-                //Formulario de asistencia
-                const SizedBox(height: 20),
-                const Divider(
-                  color: Colors.grey,
-                  height: 1,
-                ),
-                const AutoSizeText(
-                  'o',
-                  style: TextStyle(fontSize: 13),
-                  minFontSize: 8,
-                  maxLines: 1,
-                  maxFontSize: 18,
-                ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 1,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const AutoSizeText(
-                  'Rellena los campos para registrar la asistencia mediante un' +
-                      ' listado de los alumnos matriculados en la clase.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic,
+                  //Formulario de asistencia
+                  const SizedBox(height: 20),
+                  const Divider(
+                    color: Colors.grey,
+                    height: 1,
                   ),
-                  textAlign: TextAlign.justify,
-                  minFontSize: 10,
-                  maxLines: 4,
-                  maxFontSize: 30,
-                ),
-                const SizedBox(height: 20),
+                  const AutoSizeText(
+                    'o',
+                    style: TextStyle(fontSize: 13),
+                    minFontSize: 8,
+                    maxLines: 1,
+                    maxFontSize: 18,
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                    height: 1,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const AutoSizeText(
+                    'Rellena los campos para registrar la asistencia mediante un' +
+                        ' listado de los alumnos matriculados en la clase.',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    textAlign: TextAlign.justify,
+                    minFontSize: 10,
+                    maxLines: 4,
+                    maxFontSize: 30,
+                  ),
+                  const SizedBox(height: 20),
 
-                FormRegisterClassAttendance(),
-              ],
+                  FormRegisterClassAttendance(),
+                ],
+              ),
             ),
           ),
         ),
