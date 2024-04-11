@@ -3,9 +3,18 @@ import 'package:flutter/material.dart';
 
 import 'package:maestros/src/services/auth.dart';
 
+/// ```StudentForm``` - Es una clase definida para mostrar en la pantalla de
+/// inicio.
 class StudentForm with ChangeNotifier {
+  /// ```StudentForm``` - Es el construcor de la clase definida para mostrar en
+  /// la pantalla de inicio.
+  factory StudentForm() {
+    return _instance;
+  }
+
+  StudentForm._private();
   static final StudentForm _instance = StudentForm._private();
-  int _numControl = 0;
+  String _numControl = '';
 
   String _nombre = '';
   String _semestre = '';
@@ -14,12 +23,14 @@ class StudentForm with ChangeNotifier {
   String _especialidad = '';
   String _asignatura = '';
 
-  List _incidencia = [];
+  var _incidencia = <String>[];
 
   String _comentarios = '';
 
   DateTime _dateReport = DateTime.now();
 
+  /// ```dataReport``` es el getter de la variabla
+  /// [_dateReport]
   DateTime get dateReport => _dateReport;
 
   set dateReport(DateTime value) {
@@ -27,6 +38,10 @@ class StudentForm with ChangeNotifier {
     notifyListeners();
   }
 
+  /// [_comentarios] La variable es privada y es la encargada en almacenar los
+  /// comentarios del maestro.
+  /// Pero para obtenerlo usamos el Getter:
+  /// ```comentarios```
   String get comentarios => _comentarios;
 
   set comentarios(String value) {
@@ -35,17 +50,24 @@ class StudentForm with ChangeNotifier {
     debugPrint('Comentarios actualizados correctamente $comentarios');
   }
 
-  List get incidencia => _incidencia;
+  /// [_incidencia] La variable es privada y es la encargada en almacenar las
+  /// incidencias del maestro.
+  /// Pero para obtenerlo usamos el Getter:
+  /// ```incidencia```
+  List<String> get incidencia => _incidencia;
 
-  set incidencia(List value) {
-    _incidencia.clear();
-    _incidencia.addAll(value);
+  set incidencia(List<String> value) {
+    _incidencia
+      ..clear()
+      ..addAll(value as Iterable<String>);
     debugPrint('Lista de incidencias actualizada correctamente $incidencia');
     notifyListeners();
   }
 
   Map<String, dynamic> _studentData = {};
 
+  /// [```studentData```] es el getter de la variable [_studentData]
+  /// ```_studentData```
   Map<String, dynamic> get studentData => _studentData;
 
   set studentData(Map<String, dynamic> value) {
@@ -53,24 +75,25 @@ class StudentForm with ChangeNotifier {
     notifyListeners();
   }
 
-  factory StudentForm() {
-    return _instance;
-  }
-  StudentForm._private();
-
+  /// Devuelve la asignatura del estudiante.
   String get asignatura => _asignatura;
 
+  /// Devuelve la especialidad del estudiante.
   String get especialidad => _especialidad;
 
+  /// Devuelve el grupo al que pertenece el estudiante.
   String get grupo => _grupo;
 
+  /// Devuelve el nombre del estudiante.
   String get nombre => _nombre;
 
-  int get numControl => _numControl;
+  /// Devuelve el número de control del estudiante.
+  String get numControl => _numControl;
 
+  /// Devuelve el semestre en el que se encuentra el estudiante.
   String get semestre => _semestre;
 
-  set numControl(int newValue) {
+  set numControl(String newValue) {
     _numControl = newValue;
     notifyListeners();
   }
@@ -100,16 +123,17 @@ class StudentForm with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Carga los datos del estudiante para mostrarlos en la pantalla de inicio.
   Future<bool> setStudent(int numControl) async {
     try {
       final authService = AuthService();
       // Obtiene una referencia a la colección 'Alumnos' de Firebase Firestore.
-      CollectionReference collectionReferenceAlumno =
-          authService.db.collection("Alumnos");
+      final CollectionReference collectionReferenceAlumno =
+          authService.db.collection('Alumnos');
 
       // Realiza la consulta a la colección 'Alumnos' buscando al estudiante por
       // número de control.
-      QuerySnapshot querySnapshotAlumno = await collectionReferenceAlumno
+      final querySnapshotAlumno = await collectionReferenceAlumno
           .where('NumControl', isEqualTo: numControl)
           .get();
 
@@ -121,13 +145,13 @@ class StudentForm with ChangeNotifier {
 
       // Se encontró al menos un estudiante, actualiza los datos del estudiante
       // y devuelve true.
-      QueryDocumentSnapshot element = querySnapshotAlumno.docs[0];
+      final element = querySnapshotAlumno.docs[0];
 
-      _numControl = element['NumControl'];
-      _nombre = element['Nombre'];
-      _semestre = element['Semestre'];
-      _grupo = element['Grupo'];
-      _especialidad = element['Especialidad'];
+      _numControl = element['NumControl'] as String;
+      _nombre = element['Nombre'] as String;
+      _semestre = element['Semestre'] as String;
+      _grupo = element['Grupo'] as String;
+      _especialidad = element['Especialidad'] as String;
 
       debugPrint('el elemento es:$element');
       notifyListeners();
@@ -141,8 +165,9 @@ class StudentForm with ChangeNotifier {
     }
   }
 
-  Future clear() async {
-    _numControl = 0;
+  /// Limpia los datos del formulario.
+  Future<void> clear() async {
+    _numControl = '';
     _nombre = '';
     _semestre = '';
     _grupo = '';

@@ -3,34 +3,52 @@ import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/list_incidents.dart';
 import 'package:provider/provider.dart';
 
+/// Widget que representa un elemento de la lista de incidencias.
 class ListItem extends StatefulWidget {
-  final String nameAlumn; // Nombre del alumno
-  final String comentarios; // Descripción del incidente
-  final String linkFotoPerfil; // Enlace a la foto de perfil del alumno
-  final String especialidad; // Especialidad del alumno
-  final String grupo; // Grupo del alumno
-  final String semestre; // Semestre del alumno
-  final DocumentReference docRef; // Referencia de la incidencia
-
+  /// Constructor de la clase ListItem.
   const ListItem({
+    required this.docRef,
     super.key,
     // Valores predeterminados para los parámetros opcionales
     this.linkFotoPerfil =
-        "assets/webp/blank-profile-picture-973460_960_720.webp",
-    this.comentarios = "Aquí se coloca la descripción del Incidente",
-    this.nameAlumn = '<Nombre del Alumno>',
-    this.especialidad = "<Especialidad>",
-    this.grupo = '<Grupo del Alumno>',
-    this.semestre = '<Semestre del Alumno>',
-    required this.docRef,
+        'assets/webp/blank-profile-picture-973460_960_720.webp',
+    this.comentarios =
+        'Cargando...', //'Aquí se coloca la descripción del Incidente',
+    this.nameAlumn = 'Cargando...', // '<Nombre del Alumno>',
+    this.especialidad = 'Cargando...', // '<Especialidad>',
+    this.grupo = 'Cargando...', // '<Grupo del Alumno>',
+    this.semestre = 'Cargando...', // '<Semestre del Alumno>',
   });
+
+  /// Nombre del alumno.
+  final String nameAlumn;
+
+  /// Descripción del incidente.
+  final String comentarios;
+
+  /// Enlace a la foto de perfil del alumno.
+  final String linkFotoPerfil;
+
+  /// Especialidad del alumno.
+  final String especialidad;
+
+  /// Grupo del alumno.
+  final String grupo;
+
+  /// Semestre del alumno.
+  final String semestre;
+
+  /// Referencia de la incidencia.
+  final DocumentReference docRef;
 
   @override
   State<ListItem> createState() => _ListItemState();
 }
 
+/// Estado de la clase ListItem.
 class _ListItemState extends State<ListItem> {
-  List<dynamic> itemsList = [
+  /// Lista de elementos del menú emergente.
+  List<List<Object>> itemsList = [
     [Icons.delete, Colors.red, 10.00, 'Eliminar...'],
     // [Icons.view_comfy_rounded, Colors.green, 10.00, 'Ver mas...'],
   ];
@@ -40,13 +58,18 @@ class _ListItemState extends State<ListItem> {
     return _buildPanel();
   }
 
+  /// Construye el panel del elemento de la lista.
   Widget _buildPanel() {
     return Card(
       child: ListTile(
         leading:
             Image.asset(widget.linkFotoPerfil), // Imagen de perfil del alumno
         title: Text(
-            "${widget.nameAlumn} // ${widget.semestre}${widget.grupo} // ${widget.especialidad}"), // Título del elemento
+          // Título del elemento
+          '${widget.nameAlumn} '
+          '// ${widget.semestre}${widget.grupo} '
+          '// ${widget.especialidad}',
+        ),
         subtitle: Text(widget.comentarios), // Subtítulo del elemento
         trailing: PopupMenuButton<int>(
           itemBuilder: (context) => itemsList.asMap().entries.map((entry) {
@@ -57,14 +80,15 @@ class _ListItemState extends State<ListItem> {
               child: Row(
                 children: <Widget>[
                   Icon(
-                    item[0], // Icono del elemento
-                    color: item[1], // Color del icono
+                    item[0] as IconData, // Icono del elemento
+                    color: item[1] as Color, // Color del icono
                   ),
                   SizedBox(
-                    width: item[2], // Espacio entre el icono y el texto
+                    // Espacio entre el icono y el texto
+                    width: item[2] as double,
                   ),
                   Text(
-                    item[3], // Texto del elemento
+                    item[3].toString(), // Texto del elemento
                   ),
                 ],
               ),
@@ -73,8 +97,6 @@ class _ListItemState extends State<ListItem> {
                 switch (index) {
                   case 0:
                     await _showDeleteConfirmationDialog();
-                    break;
-
                   // case 1:
                   //   // Ver más
                   //   _showPdfDocument(context);
@@ -85,13 +107,14 @@ class _ListItemState extends State<ListItem> {
           }).toList(),
           //const Icon(Icons.more_vert_sharp), // Icono al final del elemento
         ),
-        isThreeLine:
-            true, // Indica si el elemento tiene tres líneas de contenido
+
+        // Indica si el elemento tiene tres líneas de contenido
+        isThreeLine: true,
       ),
     );
   }
 
-  ///showDeleteConfirmationDialog
+  /// Muestra un diálogo de confirmación para eliminar el elemento.
   Future<void> _showDeleteConfirmationDialog() async {
     return showDialog<void>(
       context: context,
@@ -108,8 +131,9 @@ class _ListItemState extends State<ListItem> {
           actions: <Widget>[
             TextButton(
               style: const ButtonStyle(
-                  textStyle:
-                      MaterialStatePropertyAll(TextStyle(color: Colors.black))),
+                textStyle:
+                    MaterialStatePropertyAll(TextStyle(color: Colors.black)),
+              ),
               onPressed: () {
                 Navigator.of(context).pop(); // Cerrar el diálogo sin eliminar
               },
@@ -120,14 +144,15 @@ class _ListItemState extends State<ListItem> {
             ),
             TextButton(
               style: const ButtonStyle(
-                  textStyle:
-                      MaterialStatePropertyAll(TextStyle(color: Colors.black))),
+                textStyle:
+                    MaterialStatePropertyAll(TextStyle(color: Colors.black)),
+              ),
               onPressed: () async {
                 // Eliminar
                 await context.read<ListIncidents>().deleteReport(
-                    context: context,
-                    docRef:
-                        widget.docRef); // Llamar a la función de eliminación
+                      context: context,
+                      docRef: widget.docRef,
+                    ); // Llamar a la función de eliminación
                 debugPrint('Eliminar...');
                 Navigator.of(context).pop(); // Cerrar el diálogo
               },

@@ -1,7 +1,3 @@
-//TODO: implement de ignore_for_file: avoid_print, library_private_types_in_public_api
-
-// ignore_for_file: avoid_print, library_private_types_in_public_api
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,19 +6,24 @@ import 'package:maestros/src/layouts/pages/my_home_page.dart';
 import 'package:maestros/src/services/auth.dart';
 import 'package:provider/provider.dart';
 
+/// Pantalla de bienvenida que se muestra al iniciar la aplicación.
 class WelcomeScreen extends StatefulWidget {
+  /// Constructor de la clase.
+  const WelcomeScreen({required this.context, super.key});
+
+  /// Contexto
   final BuildContext context;
-  const WelcomeScreen({super.key, required this.context});
 
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  WelcomeScreenState createState() => WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  double _opacity = 0.0;
+/// Estado de la pantalla de bienvenida.
+class WelcomeScreenState extends State<WelcomeScreen> {
+  double _opacity = 0;
 
-  final double _containerHeight = 200.0;
-  final double _containerWidth = 200.0;
+  final double _containerHeight = 200;
+  final double _containerWidth = 200;
 
   @override
   void initState() {
@@ -40,9 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         _opacity = 0.0;
       });
       Timer(const Duration(milliseconds: 800), () {
-        //Navigator.of(context).pushNamed('/Home');
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const Welcom()));
+        Navigator.of(context).push(const Welcom() as Route<Object?>);
       });
     });
   }
@@ -74,7 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 width: _containerWidth,
                 curve: Curves.easeOutQuad,
                 child: Image.asset(
-                  'assets/svg/logo2.png',
+                  'assets/svg/credencialesqr_imagotipo_azul.png',
                   fit: BoxFit.contain,
                 ),
               ),
@@ -86,18 +85,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 }
 
+/// Clase que representa la pantalla de bienvenida.
 class Welcom extends StatefulWidget {
+  /// Crea una instancia de [Welcom].
   const Welcom({super.key});
 
+  /// Crea una instancia de [Welcom].
   @override
-  _WelcomState createState() => _WelcomState();
+  WelcomState createState() => WelcomState();
 }
 
-class _WelcomState extends State<Welcom> {
-  double _opacity = 0.0;
+/// Estado de la pantalla de bienvenida.
+class WelcomState extends State<Welcom> {
+  double _opacity = 0;
 
-  final double _containerHeight = 200.0;
-  final double _containerWidth = 200.0;
+  final double _containerHeight = 200;
+  final double _containerWidth = 200;
 
   @override
   void initState() {
@@ -115,32 +118,28 @@ class _WelcomState extends State<Welcom> {
         _opacity = 0.0;
       });
       Timer(const Duration(milliseconds: 800), () {
-        //Navigator.of(context).pushNamed('/Home');
-        //Navigator.of(context).canPop();
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Consumer<AuthService>(
-            // Utiliza el estado de autenticación para determinar qué página mostrar.
+        Navigator.of(context).push(
+          Consumer<AuthService>(
+            // Utiliza el estado de autenticación para determinar qué página
+            // mostrar.
             builder: (context, AuthService authService, child) {
               switch (authService.status) {
                 case AuthStatus.Uninitialized:
-                  print(authService.status);
-                  return const Login(); // Muestra la pantalla de inicio de sesión
+                  debugPrint('${authService.status}');
+                  return const Login();
                 case AuthStatus.Authenticated:
-                  print(authService.status);
+                  debugPrint('${authService.status}');
                   return const MyHomePage();
-                //case AuthStatus.Authenticating:
-                //print(authService.status);
-                //return const CircularProgressIndicator(); // O algún otro widget de carga
                 case AuthStatus.Unauthenticated:
-                  print(authService.status);
-                  return const Login(); // Muestra la pantalla de inicio de sesión
-                default:
-                  print(authService.status);
-                  return WelcomeScreen(context: context);
+                  debugPrint('${authService.status}');
+                  return const Login();
+                case AuthStatus.Authenticating:
+                  debugPrint('${authService.status}');
+                  return const CircularProgressIndicator.adaptive();
               }
             },
-          ),
-        ));
+          ) as Route<Object?>,
+        );
       });
     });
   }
@@ -151,19 +150,8 @@ class _WelcomState extends State<Welcom> {
       body: AnimatedOpacity(
         opacity: _opacity,
         duration: const Duration(milliseconds: 800),
-        child: Container(
+        child: ColoredBox(
           color: Colors.white,
-          //decoration: const BoxDecoration(
-          //  gradient: LinearGradient(
-          //    colors:
-          //    [
-          //      Color(0xFF02A9DA),
-          //      Color(0xFF069BDF),
-          //      Color(0xFF0F84D1),
-          //      Color(0xFF186DDE),
-          //    ],
-          //  ),
-          //),
           child: Center(
             child: AnimatedOpacity(
               opacity: _opacity,
@@ -177,20 +165,15 @@ class _WelcomState extends State<Welcom> {
                   'assets/svg/logocbtis.svg',
                   width: 900, // Ancho deseado en píxeles
                   height: 900, // Alto deseado en píxeles
-                  fit: BoxFit
-                      .contain, // Ajusta la imagen dentro del espacio disponible
 
                   placeholderBuilder: (context) => LayoutBuilder(
                     builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      return SvgPicture.asset(
-                        'assets/svg/logocbtis.svg',
-                        width: constraints.maxWidth, // Ancho máximo disponible
-                        height: constraints.maxHeight, // Alto máximo disponible
-                        fit: BoxFit
-                            .contain, // Ajusta la imagen dentro del espacio disponible
-                      );
-                    },
+                        (BuildContext context, BoxConstraints constraints) =>
+                            SvgPicture.asset(
+                      'assets/svg/logocbtis.svg',
+                      width: constraints.maxWidth, // Ancho máximo disponible
+                      height: constraints.maxHeight, // Alto máximo disponible
+                    ),
                   ),
                 ),
               ),

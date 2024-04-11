@@ -1,20 +1,27 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:maestros/src/providers/register_class_attendance/provider_register_class_attendance.dart';
-
 import 'package:maestros/src/layouts/util/colores.dart';
-import 'package:maestros/src/layouts/widgets/util/showSnackBar.dart';
+import 'package:maestros/src/layouts/widgets/util/show_snack_bar.dart';
+import 'package:maestros/src/providers/register_class_attendance/provider_register_class_attendance.dart';
 import 'package:maestros/src/util/extrar_id.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
+/// Widget para escanear códigos QR y registrar la asistencia del estudiante.
 class RegisterAttendanceQrScanner extends StatelessWidget {
+  /// Constructor de la clase.
   RegisterAttendanceQrScanner({super.key});
+
+  /// Instancia del plugin para escanear códigos QR.
   final _qrBarCodeScannerDialogPlugin = QrBarCodeScannerDialog();
 
+  /// Método build para construir el widget.
   @override
   Widget build(BuildContext context) {
-    bool conditionBTN = context.watch<RegisterClassAttendance>().status ==
+    // Condición para habilitar/deshabilitar el botón de escaneo.
+    final conditionBTN = context.watch<RegisterClassAttendance>().status ==
             FormStateRegisterClassAttendance.ERROR ||
         context.watch<RegisterClassAttendance>().status ==
             FormStateRegisterClassAttendance.ENDED;
@@ -39,17 +46,26 @@ class RegisterAttendanceQrScanner extends StatelessWidget {
         context: context,
         onCode: (code) async {
           try {
-            int numControl = int.parse(extraerId(code!));
+            // Extrae el número de control del código QR escaneado.
+            final numControl = int.parse(extraerId(code!));
+            // Registra la asistencia del estudiante.
             await context
                 .read<RegisterClassAttendance>()
                 .registerAttendanceStudent(numControl)
-                .whenComplete(() => ShowSnackBar(context: context)
-                    .showSnackBarMessage(
-                        true, 'Asistencia registrada correctamente'));
+                .whenComplete(
+                  () => ShowSnackBar(context: context).showSnackBarMessage(
+                    isSuccess: true,
+                    message: 'Asistencia registrada correctamente',
+                  ),
+                );
           } catch (e) {
-            ShowSnackBar(context: context).showSnackBarMessage(false,
-                'No se puede registrar la asistencia del alumno. Error: $e');
-            debugPrint("Este es el catch del qr scanner dialog$e");
+            // Manejo de errores en caso de falla al registrar la asistencia.
+            ShowSnackBar(context: context).showSnackBarMessage(
+              isSuccess: false,
+              message:
+                  'No se puede registrar la asistencia del alumno. Error: $e',
+            );
+            debugPrint('Este es el catch del qr scanner dialog$e');
           }
         },
       ),

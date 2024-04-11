@@ -3,50 +3,85 @@ import 'package:flutter/material.dart';
 import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/services/auth.dart';
 
+/// Enumeración que representa los diferentes estados del formulario de
+/// registro de asistencia a clase.
 enum FormStateRegisterClassAttendance {
+  /// El formulario ha sido completado exitosamente.
   ENDED,
+
+  /// El formulario aún no ha sido completado.
   LOADING,
-  ERROR,
+
+  /// El formulario ha fallado.
+  ERROR, // Error
 }
 
+/// Clase que proporciona el estado y funcionalidades para el registro de
+/// asistencia a clase.
 class ProviderRegisterClassAttendance extends ChangeNotifier {
-  FormStateRegisterClassAttendance status =
+  /// Estado del formulario de registro de asistencia a clase.
+  FormStateRegisterClassAttendance _status =
       FormStateRegisterClassAttendance.ENDED;
 
-  /// Obtiene la lista de alumnos que seran registradas sus asistencias en la clase.
-  List _studentsRegisterClass = [];
+  /// Obtiene el estado del formulario de registro de asistencia a clase.
+  FormStateRegisterClassAttendance get status => _status;
 
-  /// Obtiene la lista de alumnos que seran registradas sus asistencias en la clase.
-  List get studentsRegisterClass => _studentsRegisterClass;
+  /// Establece el estado del formulario de registro de asistencia a clase.
+  set status(FormStateRegisterClassAttendance value) {
+    _status = value;
+    notifyListeners();
+  }
 
-  /// Obtiene la lista de alumnos que seran registradas sus asistencias en la clase.
-  set studentsRegisterClass(List value) {
+  /// Lista de alumnos que serán registrados en la asistencia a clase.
+  var _studentsRegisterClass = <dynamic>[];
+
+  /// Obtiene la lista de alumnos que serán registrados en la asistencia a
+  /// clase.
+  List<dynamic> get studentsRegisterClass => _studentsRegisterClass;
+
+  /// Establece la lista de alumnos que serán registrados en la asistencia a
+  /// clase.
+  set studentsRegisterClass(List<dynamic> value) {
     _studentsRegisterClass.clear();
     _studentsRegisterClass = value;
     notifyListeners();
     debugPrint(
-        'Los estudiantes seleccionados son:${_studentsRegisterClass.toList().toString()}');
+      'Los estudiantes seleccionados son:${_studentsRegisterClass.toList()}',
+    );
   }
 
+  /// Lista de alumnos en la clase.
+  var _students = <dynamic>[];
+
   /// Obtiene la lista de alumnos en la clase.
-  List _students = [];
+  List<dynamic> get students => _students;
 
-  List get students => _students;
-
-  set students(List value) {
+  /// Establece la lista de alumnos en la clase.
+  set students(List<dynamic> value) {
     _students.clear();
     _students = value;
     notifyListeners();
   }
 
+  /// Semestre de la clase.
   String _semestre = '1';
+
+  /// Grupo de la clase.
   String _grupo = 'A';
+
+  /// Especialidad de la clase.
   String _especialidad = 'Programación';
 
+  /// Obtiene la especialidad de la clase.
   String get especialidad => _especialidad;
+
+  /// Obtiene el grupo de la clase.
   String get grupo => _grupo;
+
+  /// Obtiene el semestre de la clase.
   String get semestre => _semestre;
 
+  /// Establece el grupo de la clase.
   set grupo(String value) {
     if (value.isNotEmpty) {
       _grupo = value;
@@ -55,6 +90,7 @@ class ProviderRegisterClassAttendance extends ChangeNotifier {
     }
   }
 
+  /// Establece el semestre de la clase.
   set semestre(String value) {
     if (value.isNotEmpty) {
       _semestre = value;
@@ -63,6 +99,7 @@ class ProviderRegisterClassAttendance extends ChangeNotifier {
     }
   }
 
+  /// Establece la especialidad de la clase.
   set especialidad(String value) {
     if (value.isNotEmpty) {
       _especialidad = value;
@@ -71,20 +108,20 @@ class ProviderRegisterClassAttendance extends ChangeNotifier {
     }
   }
 
+  /// Obtiene la lista de estudiantes de la clase.
   Future<bool> getStudents() async {
     status = FormStateRegisterClassAttendance.LOADING;
     try {
-      QuerySnapshot value = await AuthService()
+      final QuerySnapshot value = await AuthService()
           .db
-          .collection("Alumnos")
-          .where("Semestre", isEqualTo: semestre)
-          .where("Grupo", isEqualTo: grupo)
-          .where("Especialidad", isEqualTo: especialidad)
+          .collection('Alumnos')
+          .where('Semestre', isEqualTo: semestre)
+          .where('Grupo', isEqualTo: grupo)
+          .where('Especialidad', isEqualTo: especialidad)
           .get();
-
       students = value.docs;
       status = FormStateRegisterClassAttendance.ENDED;
-      debugPrint('Los estudiantes son: ${students.toList().toString()}');
+      debugPrint('Los estudiantes son: ${students.toList()}');
       return true;
     } catch (e) {
       status = FormStateRegisterClassAttendance.ERROR;
@@ -92,23 +129,25 @@ class ProviderRegisterClassAttendance extends ChangeNotifier {
     }
   }
 
+  /// Envía la lista de estudiantes registrados en la asistencia a clase.
   Future<bool> submitStudentsAt() async {
     status = FormStateRegisterClassAttendance.LOADING;
     try {
-      RegisterClassAttendance rCAS = RegisterClassAttendance();
+      final rCAS = RegisterClassAttendance();
       studentsRegisterClass.map((item) async {
-        await rCAS.registerAttendanceStudent(item['NumControl']);
+        await rCAS.registerAttendanceStudent(item['NumControl'] as int);
       }).toList();
       clear();
       status = FormStateRegisterClassAttendance.ENDED;
       return true;
     } catch (e) {
       status = FormStateRegisterClassAttendance.ERROR;
-      debugPrint('El error es: ${e.toString()}');
+      debugPrint('El error es: $e');
       return false;
     }
   }
 
+  /// Limpia los datos relacionados con el registro de asistencia a clase.
   void clear() {
     studentsRegisterClass.clear();
     students.clear();
@@ -119,12 +158,9 @@ class ProviderRegisterClassAttendance extends ChangeNotifier {
   }
 }
 
-/// Clase para la registro de asistencia de una clase. Esta clase permite
-/// registrar la asistencia de un estudiante a una clase. La clase utiliza el
-/// patron Provider para notificar a los widgets que esten escuchando cuando
-/// cambia el estado de registro de asistencia.
+/// Clase para el registro de asistencia de una clase.
 class RegisterClassAttendance with ChangeNotifier {
-  /// Numero de control del estudiante.
+  /// Número de control del estudiante.
   int _numControl = 0;
 
   /// Materia a la que asiste el estudiante.
@@ -134,40 +170,28 @@ class RegisterClassAttendance with ChangeNotifier {
   FormStateRegisterClassAttendance _status =
       FormStateRegisterClassAttendance.ENDED;
 
-  /// Obtiene el numero de control del estudiante.
-  ///
-  /// Retorna el numero de control del estudiante.
+  /// Obtiene el número de control del estudiante.
   int get numControl => _numControl;
 
   /// Obtiene la materia a la que asiste el estudiante.
-  ///
-  /// Retorna la materia a la que asiste el estudiante.
   String get materia => _materia;
 
   /// Obtiene el estado del formulario de registro de asistencia.
-  ///
-  /// Retorna el estado del formulario de registro de asistencia.
   FormStateRegisterClassAttendance get status => _status;
 
-  /// Establece el numero de control del estudiante.
-  ///
-  /// [value] es el nuevo valor del numero de control del estudiante.
+  /// Establece el número de control del estudiante.
   set numControl(int value) {
     _numControl = value;
     notifyListeners();
   }
 
   /// Establece la materia a la que asiste el estudiante.
-  ///
-  /// [value] es la nueva materia a la que asiste el estudiante.
   set materia(String value) {
     _materia = value;
     notifyListeners();
   }
 
   /// Establece el estado del formulario de registro de asistencia.
-  ///
-  /// [value] es el nuevo estado del formulario de registro de asistencia.
   set status(FormStateRegisterClassAttendance value) {
     _status = value;
     notifyListeners();
@@ -175,31 +199,22 @@ class RegisterClassAttendance with ChangeNotifier {
 
   /// Registra la asistencia del estudiante a la clase.
   ///
-  /// [numControl] es el numero de control del estudiante.
+  /// [numControl] es el número de control del estudiante.
   ///
-  /// Lanza una excepcion si ocurre algun error en el proceso de registro.
-  Future registerAttendanceStudent(int numControl) async {
+  /// Lanza una excepción si ocurre algún error en el proceso de registro.
+  Future<void> registerAttendanceStudent(int numControl) async {
     try {
-      // Cambia el estado del formulario a cargando
       status = FormStateRegisterClassAttendance.LOADING;
-      // Obtiene la instancia del servicio de autenticación
-      AuthService authService = AuthService();
-      // Registra la asistencia del estudiante a la clase en la base de datos
-      await authService.db.collection("AsistenciaClase").doc().set({
+      final authService = AuthService();
+      await authService.db.collection('AsistenciaClase').doc().set({
         'Maestros_idMaestros': UserModel().idMaestros,
         'classTime': DateTime.now(),
         'materia': materia,
         'numControl': numControl.toString(),
       });
-      // Cambia el estado del formulario a finalizado
       status = FormStateRegisterClassAttendance.ENDED;
     } catch (e) {
-      // Cambia el estado del formulario a error
       status = FormStateRegisterClassAttendance.ERROR;
     }
   }
-
-  /// Registra la asistencia del estudiante a la clase.
-  ///
-  /// Esta funcion registra la asistencia del estudiante a la clase.
 }

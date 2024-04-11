@@ -1,43 +1,60 @@
+// ignore: lines_longer_than_80_chars
+// ignore_for_file: use_build_context_synchronously, inference_failure_on_untyped_parameter, invalid_return_type_for_catch_error inference_failure_on_untyped_parameter, invalid_return_type_for_catch_error
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:maestros/src/providers/list_incidents.dart';
-
-import 'package:maestros/src/providers/student_form_provider.dart';
-import 'package:maestros/src/providers/user.dart';
 import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:maestros/src/layouts/util/info.dart';
-
 import 'package:maestros/src/layouts/widgets/add_incidents/dropmenu.dart';
-import 'package:maestros/src/layouts/widgets/util/showSnackBar.dart';
-
+import 'package:maestros/src/layouts/widgets/util/show_snack_bar.dart';
+import 'package:maestros/src/providers/list_incidents.dart';
+import 'package:maestros/src/providers/student_form_provider.dart';
+import 'package:maestros/src/providers/user.dart';
 import 'package:provider/provider.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 
-//TODO TERMINAR DE HACER ESTE ARCHIVO PARA HOY
-
-///[FormViewAddIncidents] -  Es una clase definida para mostrar en la pantalla de inicio.
+/// [FormViewAddIncidents] -  Es una clase definida para mostrar en la pantalla
+/// de inicio.
 class FormViewAddIncidents extends StatelessWidget {
+  /// ```[FormViewAddIncidents]``` -  Es el construcor de la clase definida para
+  /// mostrar en la pantalla de inicio.
   FormViewAddIncidents({super.key});
 
-  //Colores de la aplicación
+  ///Colores de la aplicación ```ColoresApp```
   final ColoresApp cAplication = ColoresApp();
 
   // Controllers
-  final TextEditingController _numControl_Controller = TextEditingController();
 
-  final TextEditingController _nombre_Controller = TextEditingController();
+  /// ```[_numControlController]``` - Es el controlador para el campo de texto
+  /// de numero de control.
+  final TextEditingController _numControlController = TextEditingController();
 
-  final TextEditingController _semestre_Controller = TextEditingController();
+  /// ```[_nombreController]``` - Es el controlador para el campo de texto de
+  /// nombre.
+  final TextEditingController _nombreController = TextEditingController();
 
-  final TextEditingController _grupo_Controller = TextEditingController();
+  /// ```[_semestreController]``` - Es el controlador para el campo de texto de
+  /// semestre.
+  final TextEditingController _semestreController = TextEditingController();
 
-  final TextEditingController _especialidad_Controller =
-      TextEditingController();
+  /// ```[_grupoController]``` - Es el controlador para el campo de texto de
+  /// grupo.
+  final TextEditingController _grupoController = TextEditingController();
 
-  final TextEditingController _asignatura_Controller = TextEditingController();
+  /// ```[_especialidadController]``` - Es el controlador para el campo de texto
+  /// de especialidad.
+  final TextEditingController _especialidadController = TextEditingController();
 
-  final TextEditingController _comentarios_Controller = TextEditingController();
+  /// ```[_asignaturaController]``` - Es el controlador para el campo de texto
+  /// de asignatura.
+  final TextEditingController _asignaturaController = TextEditingController();
 
+  /// ```[_comentariosController]``` - Es el controlador para el campo de texto
+  /// de comentarios.
+  final TextEditingController _comentariosController = TextEditingController();
+
+  /// ```[_controllerDate]``` - Es el controlador para el campo de texto de
+  /// fecha. Se inicializa con la fecha actual.
   final _controllerDate =
       TextEditingController(text: DateTime.now().toString());
   // Variables con keys
@@ -55,16 +72,36 @@ class FormViewAddIncidents extends StatelessWidget {
   final _asignaturaFocus = FocusNode();
 
   final _comentariosFocus = FocusNode();
+
   // Espacios entre los campos
-  final double espaciadoVertical = 30.0;
 
-  final double espaciadoHorizontal = 30.0;
+  /// ```[espaciadoVertical]``` es el espacio entre los elementos
+  final double espaciadoVertical = 30;
 
-  final List semestre = ["1", "2", "3", "4", "5", "6"];
+  /// ```[espaciadoHorizontal]``` es el espacio entre los elementos
+  final double espaciadoHorizontal = 30;
 
-  final List grupo = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
+  /// ```[semestre]``` es una lista de String que contiene los semestres
+  final List<String> semestre = ['1', '2', '3', '4', '5', '6'];
 
-  final List especialidad = [
+  /// ```[grupo]``` es una lista de String que contiene los grupos
+  final List<String> grupo = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+  ];
+
+  /// ```[especialidad]``` es una lista de String que contiene las
+  /// especialidades
+  final List<String> especialidad = [
     'Administración de Recursos Humanos',
     'Electrónica',
     'Logística',
@@ -74,10 +111,12 @@ class FormViewAddIncidents extends StatelessWidget {
     'Transformación de Plásticos',
   ];
 
-  final List asignatura = InfoAplication().asignatura;
+  /// ```[asignatura]``` es una lista de String que contiene las asignaturas
+  final List<String> asignatura = InfoAplication().asignatura;
 
-// Incidencias
-  final List incidencias = [
+  /// ```[incidencias]``` es una lista de String que contiene las incidencias
+  /// posibles
+  final List<String> incidencias = [
     'Falta de Asistencia',
     'No Entrega Actividades',
     'No entrega Tarea',
@@ -89,8 +128,6 @@ class FormViewAddIncidents extends StatelessWidget {
     // Agrega más incidencias aquí según sea necesario
   ];
 
-  ///TODO TERMINAR DE HACER ESTE ARCHIVO PARA HOY
-  ///
   @override
   Widget build(BuildContext context) {
     return _searchViewWidget(context);
@@ -98,27 +135,26 @@ class FormViewAddIncidents extends StatelessWidget {
 
   Widget _searchViewWidget(BuildContext context) {
     //ShowSnackBar sSB = ShowSnackBar(context: context);
-    ShowSnackBar sSB = ShowSnackBar(context: context);
-    _numControl_Controller.text =
-        context.watch<StudentForm>().numControl.toString();
+    final sSB = ShowSnackBar(context: context);
+    _numControlController.text = context.watch<StudentForm>().numControl;
 
-    _nombre_Controller.text = context.watch<StudentForm>().nombre;
+    _nombreController.text = context.watch<StudentForm>().nombre;
 
-    _semestre_Controller.text = context.watch<StudentForm>().semestre;
+    _semestreController.text = context.watch<StudentForm>().semestre;
 
-    _grupo_Controller.text = context.watch<StudentForm>().grupo;
+    _grupoController.text = context.watch<StudentForm>().grupo;
 
-    _especialidad_Controller.text = context.watch<StudentForm>().especialidad;
+    _especialidadController.text = context.watch<StudentForm>().especialidad;
 
-    _asignatura_Controller.text = context.watch<StudentForm>().asignatura;
+    _asignaturaController.text = context.watch<StudentForm>().asignatura;
 
     //_incidencias_Controller.text = context.watch<StudentForm>().incidencia;
 
-    _comentarios_Controller.text = context.watch<StudentForm>().comentarios;
+    _comentariosController.text = context.watch<StudentForm>().comentarios;
 
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Form(
           key: _formKey,
           child: Column(
@@ -131,13 +167,12 @@ class FormViewAddIncidents extends StatelessWidget {
                     const Icon(Icons.search_off_rounded, size: 20),
                 textInputType: TextInputType.number,
                 hintTextColour: Color(cAplication.fuerteMedio),
-                durationInMilliSeconds: 1000,
                 buttonShadowColour: Color(cAplication.medio),
-                textEditingController: _numControl_Controller,
+                textEditingController: _numControlController,
                 isOriginalAnimation: true,
                 enableKeyboardFocus: true,
-                onChanged: (value) {
-                  context.watch<StudentForm>().numControl = int.parse(value);
+                onChanged: (String value) {
+                  context.watch<StudentForm>().numControl = value;
                   debugPrint('onChanged: $value');
                 },
                 enteredTextStyle: const TextStyle(fontStyle: FontStyle.italic),
@@ -150,15 +185,23 @@ class FormViewAddIncidents extends StatelessWidget {
                 },
                 onPressButton: (isSearchBarOpens) {
                   debugPrint(
-                      'do something before animation started. It\'s the ${isSearchBarOpens ? 'opening' : 'closing'} animation');
+                    'do something before animation started. Its the '
+                    '${isSearchBarOpens ? 'opening' : 'closing'} animation',
+                  );
                 },
                 onFieldSubmitted: (String value) async {
-                  bool isFound = await context
+                  final isFound = await context
                       .read<StudentForm>()
                       .setStudent(int.parse(value));
                   isFound
-                      ? sSB.showSnackBarMessage(true, 'Alumno encontrado')
-                      : sSB.showSnackBarMessage(false, 'Alumno no encontrado');
+                      ? sSB.showSnackBarMessage(
+                          isSuccess: true,
+                          message: 'Alumno encontrado',
+                        )
+                      : sSB.showSnackBarMessage(
+                          isSuccess: false,
+                          message: 'Alumno no encontrado',
+                        );
                   debugPrint('El onFieldSubmitted value $value');
                 },
                 onSaved: (String value) {
@@ -173,8 +216,7 @@ class FormViewAddIncidents extends StatelessWidget {
 
               // NUMERO DE CONTROL y NOMBRE
               TextFormField(
-                controller: _numControl_Controller,
-                autocorrect: true,
+                controller: _numControlController,
                 keyboardAppearance: Brightness.light,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -184,22 +226,23 @@ class FormViewAddIncidents extends StatelessWidget {
                   ),
                   labelText: 'No. Control',
                 ),
-                onChanged: (value) =>
-                    context.read<StudentForm>().numControl = int.parse(value),
+                onChanged: (value) => context.read<StudentForm>().numControl =
+                    int.parse(value) as String,
               ),
               SizedBox(
                 height: espaciadoVertical,
               ),
               // NOMBRE
               TextFormField(
-                controller: _nombre_Controller,
-                autocorrect: true,
+                controller: _nombreController,
                 focusNode: _numControlFocus,
                 keyboardAppearance: Brightness.light,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person_2_outlined,
-                      color: Color(cAplication.fuerte)),
+                  prefixIcon: Icon(
+                    Icons.person_2_outlined,
+                    color: Color(cAplication.fuerte),
+                  ),
                   labelText: 'Nombre',
                 ),
                 onChanged: (value) =>
@@ -253,7 +296,6 @@ class FormViewAddIncidents extends StatelessWidget {
 
                   // Espacio de separación horizontal
                   Expanded(
-                    flex: 1,
                     child: SizedBox(
                       width: espaciadoHorizontal,
                     ),
@@ -347,7 +389,6 @@ class FormViewAddIncidents extends StatelessWidget {
                   }
                   return null;
                 },
-                controlAffinity: ControlAffinity.leading,
                 name: 'Incidencias',
                 activeColor: Color(cAplication.medio),
                 orientation: OptionsOrientation.vertical,
@@ -357,11 +398,15 @@ class FormViewAddIncidents extends StatelessWidget {
                 },
                 checkColor: Colors.white,
                 options: incidencias
-                    .map((item) => FormBuilderFieldOption(
+                    .map(
+                      (item) => FormBuilderFieldOption(
                         value: item,
                         child: Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: Text(item))))
+                          padding: const EdgeInsets.all(1),
+                          child: Text(item),
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
 
@@ -372,10 +417,9 @@ class FormViewAddIncidents extends StatelessWidget {
 
               // COMENTARIOS DEL MAESTRO
               TextField(
-                autocorrect: true,
                 minLines: 1,
                 maxLines: 10,
-                controller: _comentarios_Controller,
+                controller: _comentariosController,
                 textInputAction: TextInputAction.newline,
                 keyboardType: TextInputType.multiline,
                 focusNode: _comentariosFocus,
@@ -405,7 +449,6 @@ class FormViewAddIncidents extends StatelessWidget {
                 anchorPoint: Offset.infinite,
                 currentDate: DateTime(1900),
                 initialDate: DateTime.now(),
-                enabled: true,
                 decoration: const InputDecoration(
                   labelText: 'Seleccionar Fecha y hora de la Incidencia',
                   fillColor: Colors.black,
@@ -422,7 +465,8 @@ class FormViewAddIncidents extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Expanded(
-                      flex: 1, child: SizedBox(width: espaciadoHorizontal)),
+                    child: SizedBox(width: espaciadoHorizontal),
+                  ),
                   Expanded(
                     flex: 6,
                     child: TextButton.icon(
@@ -443,7 +487,8 @@ class FormViewAddIncidents extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      flex: 1, child: SizedBox(width: espaciadoHorizontal)),
+                    child: SizedBox(width: espaciadoHorizontal),
+                  ),
                   Expanded(
                     flex: 6,
                     child: TextButton.icon(
@@ -461,16 +506,16 @@ class FormViewAddIncidents extends StatelessWidget {
                       label: const Text('Limpiar'),
                       icon: const Icon(Icons.cleaning_services_outlined),
                       onPressed: () async {
-                        context.read<StudentForm>().clear();
+                        await context.read<StudentForm>().clear();
                       },
                     ),
                   ),
                   Expanded(
-                      flex: 1, child: SizedBox(width: espaciadoHorizontal)),
+                    child: SizedBox(width: espaciadoHorizontal),
+                  ),
                 ],
               ),
 
-              //TODO: ENTRADA DE FECHA DE CITA
               /*FormBuilderDateTimePicker(
                 name: 'date',
                 anchorPoint: Offset.infinite,
@@ -491,9 +536,9 @@ class FormViewAddIncidents extends StatelessWidget {
   }
 
   Future<void> _addIncidentsButton(BuildContext context) async {
-    ShowSnackBar sSB = ShowSnackBar(context: context);
+    final sSB = ShowSnackBar(context: context);
 
-    List<dynamic> incidents = [
+    final incidents = <dynamic>[
       context.read<StudentForm>().numControl,
       context.read<StudentForm>().nombre,
       context.read<StudentForm>().grupo,
@@ -504,20 +549,25 @@ class FormViewAddIncidents extends StatelessWidget {
       context.read<StudentForm>().incidencia,
       context.read<StudentForm>().dateReport,
       context.read<UserModel>().idMaestros,
-      context.read<UserModel>().uid
+      context.read<UserModel>().uid,
     ];
     debugPrint('Incidencias: $incidents');
     dynamic onErrorShow;
-    var result = await context
+    final result = await context
         .read<ListIncidents>()
         .addIncidents(incidents)
         .catchError((onError) => onErrorShow = onError);
     await context.read<StudentForm>().clear();
     if (result) {
-      sSB.showSnackBarMessage(true, 'Incidencia agregada correctamente');
+      sSB.showSnackBarMessage(
+        isSuccess: true,
+        message: 'Incidencia agregada correctamente',
+      );
     } else {
       sSB.showSnackBarMessage(
-          false, 'No se pudo agregar la incidencia $onErrorShow');
+        isSuccess: false,
+        message: 'No se pudo agregar la incidencia $onErrorShow',
+      );
     }
   }
 }

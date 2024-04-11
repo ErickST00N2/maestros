@@ -12,11 +12,12 @@ class IncidentListPage extends StatelessWidget {
   IncidentListPage({super.key});
   // Constructor de la clase IncidentList
 
+  /// [maestro] - Es un objeto de la clase UserModel que contiene la
+  /// información del usuario.
   final UserModel maestro = UserModel();
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Implementar la lista de incidencias a la pantalla de inicio. Agregrar una lista relacionada al profesor.
     /// [size] - Es el tamaño de la pantalla que se obtiene del dispositivo.
     final size = MediaQuery.of(context).size;
 
@@ -31,11 +32,12 @@ class IncidentListPage extends StatelessWidget {
         // AppBar de la pantalla
         title: const Text(
           // Título de la AppBar
-          "Lista de Incidencias", // Texto del título
+          'Lista de Incidencias', // Texto del título
           style: TextStyle(
-              // Estilo del texto del título
-              fontFamily: AutofillHints.jobTitle, // Fuente del texto
-              color: Color.fromARGB(255, 255, 255, 255)), // Color del texto
+            // Estilo del texto del título
+            fontFamily: AutofillHints.jobTitle, // Fuente del texto
+            color: Color.fromARGB(255, 255, 255, 255),
+          ), // Color del texto
         ),
         backgroundColor:
             const Color.fromRGBO(2, 169, 218, 1), // Color de fondo de la AppBar
@@ -44,30 +46,34 @@ class IncidentListPage extends StatelessWidget {
       body: Center(
         child: FutureBuilder<List<DocumentSnapshot<Object?>>>(
           future: context.read<ListIncidents>().getReportes(context),
-          builder: (BuildContext context,
-              AsyncSnapshot<List<DocumentSnapshot<Object?>>> snapshot) {
+          builder: (
+            BuildContext context,
+            AsyncSnapshot<List<DocumentSnapshot<Object?>>> snapshot,
+          ) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(); // Muestra un indicador de carga mientras se espera la carga de datos.
+              // Muestra un indicador de carga mientras se espera la carga de
+              // datos.
+              return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Text(
-                  'Error: ${snapshot.error}'); // Maneja el caso de error.
+                'Error: ${snapshot.error}',
+              ); // Maneja el caso de error.
             } else {
               final incidents = snapshot.data ?? [];
               return Container(
                 margin: const EdgeInsets.only(top: 10),
                 width: maxWidthScreenCard,
                 child: ListView.builder(
-                  shrinkWrap: false,
                   itemCount: incidents.length,
                   itemBuilder: (context, index) {
                     final nameAlumn = incidents[index]['Alumnos_Nombre'];
 
                     return ListItem(
-                      nameAlumn: nameAlumn,
-                      semestre: incidents[index]['Semestre'],
-                      grupo: incidents[index]['Grupo'],
-                      especialidad: incidents[index]['Especialidad'],
-                      comentarios: incidents[index]['Comentarios'],
+                      nameAlumn: nameAlumn as String,
+                      semestre: incidents[index]['Semestre'] as String,
+                      grupo: incidents[index]['Grupo'] as String,
+                      especialidad: incidents[index]['Especialidad'] as String,
+                      comentarios: incidents[index]['Comentarios'] as String,
                       docRef: incidents[index].reference,
                     );
                   },

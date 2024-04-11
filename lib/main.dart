@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:maestros/src/app.dart';
 //Librerias de firebase
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:flutter/material.dart';
+import 'package:maestros/firebase_options.dart';
+import 'package:maestros/src/app.dart';
 
 @override
 

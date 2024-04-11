@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:maestros/src/providers/user.dart';
+import 'package:provider/provider.dart';
 
 import 'package:qr_flutter/qr_flutter.dart';
 
-/// [buildCardBack] - Método que construye la tarjeta back de credenciales del maestro.
-Widget buildCardBack(BuildContext context, databaseUser, double pi) {
+/// [buildCardBack] - Método que construye la tarjeta back de credenciales del
+/// maestro.
+Widget buildCardBack({required BuildContext context, required double pi}) {
   /// [size] - Es el tamaño de la pantalla que se obtiene del dispositivo.
   final size = MediaQuery.of(context).size;
 
@@ -13,30 +16,31 @@ Widget buildCardBack(BuildContext context, databaseUser, double pi) {
   final maxWidthScreenCard =
       (size.width > 600.0) ? (600.0) : (size.width * 0.95);
 
-  /// [relacionCredentialCardAspecto12] - Calculamos la relacion entre el ancho de la pantalla.
+  /// [relacionCredentialCardAspecto12] - Calculamos la relacion entre el ancho
+  /// de la pantalla.
   final relacionCredentialCardAspecto12 = maxWidthScreenCard; //Equivalente a 12
 
-  /// [relacionCredentialCardAspecto8] - Calculamos la relacion entre el alto de la pantalla.
+  /// [relacionCredentialCardAspecto8] - Calculamos la relacion entre el alto
+  /// de la pantalla.
   final relacionCredentialCardAspecto8 =
       relacionCredentialCardAspecto12 / 12 * 8; // Equivale a 8
 
   /// [typeSystem] - Tipo de sistema
-  String typeSystem = databaseUser.typeSystem;
+  final typeSystem = context.watch<UserModel>().typeSystem;
 
   /// [turn] - Turno
-  String turn = databaseUser.turn;
+  final turn = context.watch<UserModel>().turn;
 
   /// [dateEmition] - Fecha de emision
-  String dateEmition = databaseUser.dateEmition;
+  final dateEmition = context.watch<UserModel>().dateEmition;
 
   /// [schoolCycle] - Ciclo escolar
-  String schoolCycle = databaseUser.schoolCycle;
+  final schoolCycle = context.watch<UserModel>().schoolCycle;
   return Card(
     //color: cAplication.colorDeFondoCredenciales,
     elevation: 6,
-    semanticContainer: true,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(15.0),
+      borderRadius: BorderRadius.circular(15),
     ),
     child: SizedBox(
       width: relacionCredentialCardAspecto12,
@@ -50,22 +54,21 @@ Widget buildCardBack(BuildContext context, databaseUser, double pi) {
               decoration: const BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15.0),
-                    topRight: Radius.circular(15.0)),
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(6.0),
+                padding: const EdgeInsets.all(6),
                 child: Flex(
                   direction: Axis.horizontal,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //Aqui va el tipo de sistema y el turno
                     Flexible(
-                      fit: FlexFit.loose,
                       flex: 8,
                       child: Flex(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         direction: Axis.vertical,
                         children: [
@@ -84,14 +87,13 @@ Widget buildCardBack(BuildContext context, databaseUser, double pi) {
                               fontWeight: FontWeight.normal,
                               fontSize: 16,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
 
                     // Aqui va la fecha de emision y ciclo escolar
                     Flexible(
-                      fit: FlexFit.loose,
                       flex: 4,
                       child: Flex(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,56 +101,54 @@ Widget buildCardBack(BuildContext context, databaseUser, double pi) {
                         children: [
                           //Aqui va la fecha de emision
                           Flexible(
-                            fit: FlexFit.loose,
-                            flex: 1,
                             child: Flex(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                direction: Axis.vertical,
-                                children: [
-                                  const Text(
-                                    "FECHA DE EMISION",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 8,
-                                    ),
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              direction: Axis.vertical,
+                              children: [
+                                const Text(
+                                  'FECHA DE EMISION',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 8,
                                   ),
-                                  Text(
-                                    dateEmition,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 8,
-                                    ),
+                                ),
+                                Text(
+                                  dateEmition,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 8,
                                   ),
-                                ]),
+                                ),
+                              ],
+                            ),
                           ),
 
                           //Aqui va el ciclo escolar
                           Flexible(
-                            fit: FlexFit.loose,
-                            flex: 1,
                             child: Flex(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                direction: Axis.vertical,
-                                children: [
-                                  const Text(
-                                    "CICLO ESCOLAR",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 8,
-                                    ),
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              direction: Axis.vertical,
+                              children: [
+                                const Text(
+                                  'CICLO ESCOLAR',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 8,
                                   ),
-                                  Text(
-                                    schoolCycle,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 8,
-                                    ),
+                                ),
+                                Text(
+                                  schoolCycle,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 8,
                                   ),
-                                ]),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -159,90 +159,89 @@ Widget buildCardBack(BuildContext context, databaseUser, double pi) {
             ),
           ),
           Expanded(
-              flex: 5,
-              child: Flex(
-                direction: Axis.horizontal,
-                children: <Widget>[
-                  Expanded(
-                    flex: 7,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Flex(
-                        direction: Axis.vertical,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 2,
+            flex: 5,
+            child: Flex(
+              direction: Axis.horizontal,
+              children: <Widget>[
+                Expanded(
+                  flex: 7,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Flex(
+                      direction: Axis.vertical,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: SizedBox.expand(
+                            child: Image.asset(
+                              'assets/backgrounds/credential/logoDGTI.png',
+                              scale: .1,
+                              alignment: Alignment.centerLeft,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Flex(
+                            direction: Axis.horizontal,
+                            children: <Widget>[
+                              Text(
+                                context
+                                    .watch<UserModel>()
+                                    .nivelEducativo
+                                    .toUpperCase(),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color(0xFF0F84D1)),
+                              color: Colors.white,
+                            ),
                             child: SizedBox.expand(
-                              child: Image.asset(
-                                'assets/backgrounds/credential/logoDGTI.png',
-                                scale: .1,
-                                alignment: Alignment.centerLeft,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text('Firma del Alumno'.toUpperCase()),
+                                ],
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Flex(
-                              direction: Axis.horizontal,
-                              children: <Widget>[
-                                Text(
-                                  '${databaseUser.nivelEducativo.toUpperCase()}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xFF0F84D1)),
-                                color: Colors.white,
-                              ),
-                              child: SizedBox.expand(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text('Firma del Alumno'.toUpperCase())
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    flex: 5,
-                    child: QrImageView(
-                      key: const Key('QrImage'),
-                      gapless: true,
-                      padding: const EdgeInsets.all(20.0),
-                      errorCorrectionLevel: QrErrorCorrectLevel.H,
-                      data: databaseUser.claveMaestro,
-                      embeddedImageStyle: const QrEmbeddedImageStyle(
-                        size: Size(120, 90),
-                      ),
-                      semanticsLabel: databaseUser.claveMaestro,
-                      embeddedImageEmitsError: true,
-                      version: QrVersions.auto,
-                      size: 200.0,
+                ),
+                Expanded(
+                  flex: 5,
+                  child: QrImageView(
+                    key: const Key('QrImage'),
+                    padding: const EdgeInsets.all(20),
+                    errorCorrectionLevel: QrErrorCorrectLevel.H,
+                    data: context.watch<UserModel>().claveMaestro,
+                    embeddedImageStyle: const QrEmbeddedImageStyle(
+                      size: Size(120, 90),
                     ),
+                    semanticsLabel: context.watch<UserModel>().claveMaestro,
+                    embeddedImageEmitsError: true,
+                    size: 200,
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
           const SizedBox(
             height: 10,
           ),
           Expanded(
-            flex: 1,
             child: Container(
               width: relacionCredentialCardAspecto12 * 0.9,
               decoration: BoxDecoration(
@@ -256,21 +255,23 @@ Widget buildCardBack(BuildContext context, databaseUser, double pi) {
                     top: BorderSide(
                       color: Color.fromARGB(255, 208, 223, 156),
                       width: 3,
-                      style: BorderStyle.solid,
                     ),
                   ),
                 ),
               ),
-              child: const Flex(direction: Axis.vertical, children: <Text>[
-                Text(
-                  'DIRECCION DEL PLANTEL',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
-                ),
-                Text(
-                  'Fernando Hernández Carrasco S/N, Santa María Yancuitlalpan, 90500 Huamantla, Tlax.',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 8),
-                ),
-              ]),
+              child: const Flex(
+                direction: Axis.vertical,
+                children: <Text>[
+                  Text(
+                    'DIRECCION DEL PLANTEL',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                  ),
+                  Text(
+                    'Fernando Hernández Carrasco S/N, Santa María Yancuitlalpan, 90500 Huamantla, Tlax.',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 8),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

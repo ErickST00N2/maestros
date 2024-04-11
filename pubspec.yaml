@@ -65,23 +65,24 @@ dependencies:
   omni_datetime_picker: ^1.0.9
   intl: ^0.19.0
 
-  #Dependencias el texto  
+  #Dependencias el texto
   google_fonts: ^6.2.1
   auto_size_text: ^3.0.0
   image_picker: ^1.0.7
+
   # pdf: ^3.10.8
   # printing: ^5.12.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+    flutter_test:
+        sdk: flutter
+    flutter_lints: ^3.0.0
+    very_good_analysis: ^5.1.0
+flutter_launcher_icons:
+    android: true
+    ios: true
+    image_path: assets/svg/credencialesqr_isotipo_blanco.png
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -103,7 +104,9 @@ flutter:
     - assets/svg/logocbtis.svg
     - assets/backgrounds/credential/logoDGTI.png
     - assets/webp/blank-profile-picture-973460_960_720.webp
+
     - assets/svg/credencialesqr_imagotipo_blanco.png
+      #credencialesqr_imagotipo_azul
     - assets/svg/credencialesqr_imagotipo_azul.png
     - assets/svg/credencialesqr_isotipo_blanco.png
     - assets/svg/credencialesqr_isotipo_azul.png
