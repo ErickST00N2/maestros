@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
+import 'package:maestros/src/layouts/widgets/util/footer_widget/footer_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -88,10 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   '- Retardo en clases',
                   style: TextStyle(fontSize: 16),
                 ),
+                //const FooterWidget(),
               ],
             ),
           ),
         ),
+        bottomNavigationBar: const FooterWidget(),
       ),
     );
   }

@@ -4,8 +4,8 @@ import 'package:maestros/src/providers/list_incidents.dart';
 
 import 'package:maestros/src/providers/student_form_provider.dart';
 import 'package:maestros/src/providers/user.dart';
-import 'package:maestros/src/util/colores.dart';
-import 'package:maestros/src/util/info.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
+import 'package:maestros/src/layouts/util/info.dart';
 
 import 'package:maestros/src/layouts/widgets/add_incidents/dropmenu.dart';
 import 'package:maestros/src/layouts/widgets/util/showSnackBar.dart';
@@ -138,7 +138,7 @@ class FormViewAddIncidents extends StatelessWidget {
                 isOriginalAnimation: true,
                 enableKeyboardFocus: true,
                 onChanged: (value) {
-                  context.watch<StudentForm>().numControl = int.parse(value);
+                  context.read<StudentForm>().numControl = int.parse(value);
                   debugPrint('onChanged: $value');
                 },
                 enteredTextStyle: const TextStyle(fontStyle: FontStyle.italic),
@@ -335,7 +335,6 @@ class FormViewAddIncidents extends StatelessWidget {
               ///
 
               FormBuilderCheckboxGroup(
-                //disabled: ['Falta de Asistencia'],
                 separator: const Divider(),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -352,7 +351,6 @@ class FormViewAddIncidents extends StatelessWidget {
                 controlAffinity: ControlAffinity.leading,
                 name: 'Incidencias',
                 activeColor: Color(cAplication.medio),
-
                 orientation: OptionsOrientation.vertical,
                 onChanged: (value) {
                   //incidentsSelected = value as List<String>;
@@ -506,8 +504,8 @@ class FormViewAddIncidents extends StatelessWidget {
       context.read<StudentForm>().comentarios,
       context.read<StudentForm>().incidencia,
       context.read<StudentForm>().dateReport,
-      context.read<Users>().idMaestros,
-      context.read<Users>().uid
+      context.read<UserModel>().idMaestros,
+      context.read<UserModel>().uid
     ];
     debugPrint('Incidencias: $incidents');
     dynamic onErrorShow;

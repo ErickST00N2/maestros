@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:maestros/src/util/colores.dart';
-import 'package:maestros/src/util/info.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
+import 'package:maestros/src/layouts/util/info.dart';
 
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
-import 'package:maestros/src/layouts/widgets/util/pie_pagina/pie_pagina.dart';
+import 'package:maestros/src/layouts/widgets/util/footer_widget/footer_widget.dart';
 
 class AboutPage extends StatelessWidget {
   AboutPage({super.key});
-  final InfoAplication infoAplication = InfoAplication();
   final ColoresApp cAplication = ColoresApp();
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class AboutPage extends StatelessWidget {
           children: [
             Text(
               textAlign: TextAlign.justify,
-              infoAplication.nameApp,
+              InfoAplication().nameApp,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -53,7 +52,7 @@ class AboutPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const PiePagina(),
+      bottomNavigationBar: const FooterWidget(),
     );
   }
 }

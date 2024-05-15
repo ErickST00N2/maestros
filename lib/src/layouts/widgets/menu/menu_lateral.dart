@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:maestros/src/layouts/widgets/util/footer_widget/footer_widget.dart';
 import 'package:maestros/src/providers/user.dart';
 
 import 'package:maestros/src/router/routes.dart';
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 import 'package:maestros/src/layouts/widgets/menu/show_option_user.dart';
 import 'package:provider/provider.dart';
 
@@ -51,10 +52,10 @@ class MenuLateral extends StatelessWidget {
           decoration: BoxDecoration(
             color: Color(ColoresApp.fuerte3),
           ),
-          accountName: Text(_.watch<Users>().nombre),
-          accountEmail: Text(_.watch<Users>().correo),
+          accountName: Text(_.watch<UserModel>().nombre),
+          accountEmail: Text(_.watch<UserModel>().correo),
           currentAccountPicture: CircleAvatar(
-            backgroundImage: _.watch<Users>().getPhotoURL(),
+            backgroundImage: _.watch<UserModel>().getPhotoURL(),
           ),
         ),
         ListBody(
@@ -128,6 +129,7 @@ class MenuLateral extends StatelessWidget {
           endIndent: 0,
           color: Colors.black38,
         ),
+        FooterWidget()
       ],
     );
   }

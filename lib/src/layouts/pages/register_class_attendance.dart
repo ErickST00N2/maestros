@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:maestros/src/layouts/widgets/menu/menu_lateral.dart';
-import 'package:maestros/src/layouts/widgets/util/pie_pagina/pie_pagina.dart';
-import 'package:maestros/src/layouts/widgets/student_list_attendance/register_attendance_qr_scanner.dart';
-import 'package:maestros/src/util/colores.dart';
+import 'package:maestros/src/layouts/widgets/register_class_attendance/form_register_class_attendance/form_register_class_attendance.dart';
+import 'package:maestros/src/layouts/widgets/register_class_attendance/register_attendance_qr_scanner/register_attendance_qr_scanner.dart';
+import 'package:maestros/src/layouts/util/colores.dart';
 
 class RegisterClassAttendance extends StatefulWidget {
   const RegisterClassAttendance({super.key});
@@ -18,7 +18,6 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
 
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: const MenuLateral(),
       backgroundColor: Colors.white,
@@ -54,7 +53,7 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
                 const SizedBox(height: 20),
                 RegisterAttendanceQrScanner(),
 
-                //
+                //Formulario de asistencia
                 const SizedBox(height: 20),
                 const Divider(
                   color: Colors.grey,
@@ -75,7 +74,8 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
                   height: 20,
                 ),
                 const AutoSizeText(
-                  'Rellena los campos para registrar la asistencia mediante un listado de los alumnos matriculados en la clase.',
+                  'Rellena los campos para registrar la asistencia mediante un' +
+                      ' listado de los alumnos matriculados en la clase.',
                   style: TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.italic,
@@ -85,12 +85,14 @@ class _RegisterClassAttendanceState extends State<RegisterClassAttendance> {
                   maxLines: 4,
                   maxFontSize: 30,
                 ),
+                const SizedBox(height: 20),
+
+                FormRegisterClassAttendance(),
               ],
             ),
           ),
         ),
       ),
-      bottomSheet: const PiePagina(),
     );
   }
 }
